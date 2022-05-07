@@ -9,29 +9,32 @@ get_header();
 
 get_template_part('theme-parts/navbar-homepage');
   ?>
+
 <div class="home-slider">
 	<div class="swiper-wrapper">
-		<div class="swiper-slide home-slider__slide" style="background-image: url(images/portfolio/interior-3.jpg);">
+       <?php
+	    if(have_rows('slider_homepage')):  
+			while(have_rows('slider_homepage')):
+				the_row();
+				$bg_image = get_sub_field('image_item_slider');
+				$title_item_slider = get_sub_field('title_item_slider');
+				$description_item_slider = get_sub_field('description_item_slider');
+
+	   ?>
+		<div class="swiper-slide home-slider__slide" style="background-image: url(<?php echo esc_url($bg_image['url']); ?>);">
             <div class="container">
-				<h2 data-animate="bottom" class="home-slider__heading">WoodArchitecture Comfortable Design
+				<h2 data-animate="bottom" class="home-slider__heading">
+				<?php echo $title_item_slider; ?>
 				</h2>
-				<p data-animate="bottom" class="home-slider__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis voluptates consequatur doloremque, ullam tempora aut, esse voluptatibus aliquam quos inventore corporis necessitatibus ipsa cupiditate maiores ex facere. Iste amet nesciunt recusandae dignissimos asperiores fugiat explicabo?</p>
+				<p data-animate="bottom" class="home-slider__text">
+				<?php echo $description_item_slider; ?>
+				</p>
 			</div>
 		</div>
-		<div class="swiper-slide home-slider__slide" style="background-image: url(images/portfolio/interior-1.jpg);">
-            <div class="container">
-				<h2 data-animate="bottom" class="home-slider__heading">Interior Modern Style
-				</h2>
-				<p data-animate="bottom" class="home-slider__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis voluptates consequatur doloremque, ullam tempora aut, esse voluptatibus aliquam quos inventore corporis necessitatibus ipsa cupiditate maiores ex facere. Iste amet nesciunt recusandae dignissimos asperiores fugiat explicabo?</p>
-			</div>
-		</div>
-		<div class="swiper-slide home-slider__slide" style="background-image: url(images/portfolio/interior-2.jpg);">
-            <div class="container">
-				<h2 data-animate="bottom" class="home-slider__heading">WoodArchitecture Unique Design
-				</h2>
-				<p data-animate="bottom" class="home-slider__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis voluptates consequatur doloremque, ullam tempora aut, esse voluptatibus aliquam quos inventore corporis necessitatibus ipsa cupiditate maiores ex facere. Iste amet nesciunt recusandae dignissimos asperiores fugiat explicabo?</p>
-			</div>
-		</div>
+		<?php
+		endwhile;
+		endif;
+		?>
 	</div>
 	<div class="row home-slider__bottom">
 		<div class="col-3 home-slider__pagination-wrapper">
