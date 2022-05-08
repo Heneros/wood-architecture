@@ -53,21 +53,33 @@ get_template_part('theme-parts/navbar-homepage');
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-8 col-lg-6">
-				<h3 class="home-callback__header">Our Trust</h3>
+				<h3 class="home-callback__header"><?= get_field('title_our_trust'); ?></h3>
+				<?php
+				if(have_rows('items_list_trust')):
+				?>
 				<ul class="home-callback__list">
-					<li>36 the best franchisees</li>
-					<li>23 reliable partners</li>
-					<li>108 furniture manufacturers</li>
-					<li>256 eight-bit colors</li>
-					<li>12 suppliers</li>
-					<li>85 employees</li>
+				<?php
+					while(have_rows('items_list_trust')):
+						the_row();
+					$titleItem = get_sub_field('title');
+				?>
+					<li><?php echo $titleItem; ?></li>
+					<?php endwhile?>
 				</ul>
+				<?php
+				endif;
+				?>
 			</div>
 			<div class="col-xl-4 col-lg-6 home-callback__text-right">
-				<p>Call us or leave a request from the site. <br>
-					We will call you back within 1000000 minutes.</p>
-					<a href="tel:+123456" class="phone-big home-callback__phone" title="Call">+0 (123) 555-31-91</a>
-			          <button class="button home-callback__button" data-custom-open="modal" data-form="Form section" >Apply Now</button>
+				<p>
+					<?= get_field('description_callback');  ?>
+				</p>
+					<a href="tel:<?= get_field('phone_number'); ?>" class="phone-big home-callback__phone" title="Call">
+					<?= get_field('phone_number'); ?>
+					</a>
+			          <button class="button home-callback__button" data-custom-open="modal" data-form="Form section" >
+					  <?= get_field('button_text_trust'); ?>
+						</button>
 				</div>
 		</div>
 	</div>
@@ -79,12 +91,13 @@ get_template_part('theme-parts/navbar-homepage');
 			<div class="row">
 				<div class="col-xl-10 offset-xl-1 col-lg-12 best-works__top-wrapper">
 					<div class="best-works__left">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam amet ullam quae magnam aliquid hic exercitationem. Nemo, ad? Accusamus ipsam ut sit repudiandae iste quidem?
+					<?= get_field('description_best_works'); ?>
+
 					</div>
 					<div class="best-works__right">
 						<div class="section-title">
-							<div class="section-title__name">Best Works</div>
-							<h2 class="section-title__desc">We create a warm atmosphere for your holiday</h2>
+							<div class="section-title__name"><?= get_field('title__best_works'); ?></div>
+							<h2 class="section-title__desc"><?= get_field('subtitle_best_works'); ?></h2>
 						</div>
 					</div>
 				</div>
