@@ -104,42 +104,36 @@ get_template_part('theme-parts/navbar-homepage');
 			</div>
 		</div>
 	</div>
+
 	<div class="best-works__bottom">
 		<div class="container">
 			<div class="row">
+				<?php
+				 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+				 $query = new WP_Query([
+					'posts_per_page' => 3,
+					'paged' => $paged
+				]);
+				if($query->have_posts()):
+					while ($query->have_posts()):
+						$query->the_post();
+						$featured_image = get_the_post_thumbnail_url();
+				?>
 				<div class="col-md-4 best-works__item-wrapper">
 					<a href="#!" class="best-item">
 						<div class="best-item__img-wrapper">
-							<img src="images/portfolio/interior-4.jpg" alt="Modern living room">
+							<img src="<?= $featured_image; ?>" alt="Modern living room">
 						</div>
 						<div class="best-item__content">
-							<div class="address-line" title="qwerty">New York</div>
-							<div class="best-item__desc">Modern living room for big family. Bright and beutiful.</div>
+							<div class="address-line" title="qwerty"><?= the_title(); ?></div>
+							<div class="best-item__desc"><?= the_excerpt(); ?></div>
 						</div>
 					</a>
 				</div>
-				<div class="col-md-4 best-works__item-wrapper">
-					<a href="#!" class="best-item">
-						<div class="best-item__img-wrapper">
-							<img src="images/portfolio/interior-5.1.jpg" alt="Modern living room">
-						</div>
-						<div class="best-item__content">
-							<div class="address-line" title="qwerty">Seattle</div>
-							<div class="best-item__desc">Modern design for chilling and comfortable relax.</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4 best-works__item-wrapper">
-					<a href="#!" class="best-item">
-						<div class="best-item__img-wrapper">
-							<img src="images/portfolio/interior-3.jpg" alt="Modern living room">
-						</div>
-						<div class="best-item__content">
-							<div class="address-line" title="qwerty">Los Angeles</div>
-							<div class="best-item__desc">Comfy and chilling design for relax. For family.</div>
-						</div>
-					</a>
-				</div>
+				<?php
+				endwhile;
+				endif;
+				?>
 			</div>
 		</div>
 		<div class="best-works__botton-wrapper">
