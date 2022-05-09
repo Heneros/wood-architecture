@@ -122,7 +122,7 @@ get_template_part('theme-parts/navbar-homepage');
 				<div class="col-md-4 best-works__item-wrapper">
 					<a href="#!" class="best-item">
 						<div class="best-item__img-wrapper">
-							<img src="<?= $featured_image; ?>" alt="Modern living room">
+							<?= the_post_thumbnail('homepage-thumb') ?>
 						</div>
 						<div class="best-item__content">
 							<div class="address-line" title="qwerty"><?= the_title(); ?></div>

@@ -1,5 +1,57 @@
 <?php
 
+function true_ajax_loadmore(){
+
+	$paged = ! empty($_POST['paged']) ? $_POST['paged'] : 1;
+    $paged++;
+
+   $args = array(
+	  'paged' => $paged,
+	  'post_status' => 'publish'
+   );
+
+   $taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : '';
+   $term_id = ! empty($_POST['term_id']) ? $_POST['term_id'] : '';
+
+   if($taxonomy && $term_id){
+	   $args['tax_query'] = array(
+		   array(
+			   'taxonomy' => $taxonomy,
+			   'terms' => $term_id
+		   )
+		   );
+   }
+
+   query_posts($args);
+   ob_start();
+   while(have_posts()): the_post();
+
+   get_template_part('theme-parts/content-article');
+
+   endwhile;
+
+   $posts = ob_get_contents();
+   ob_get_clean();
+
+
+
+   ob_start();
+   echo paginate_links();
+   $pagination = ob_get_contents();
+   ob_get_clean();
+   
+
+
+   echo json_encode(array(
+     'posts' => $posts,
+	 'pagination' => str_replace(admin_url('admin-ajax.php'), $_POST['pagenumlink'], $pagination) 
+   ));
+	die();
+}
+
+
+
+
 
 function add_additional_class_on_li($classes, $item, $args) {
     if(isset($args->add_li_class)) {
@@ -49,6 +101,8 @@ function wood_setup() {
     add_theme_support('custom-logo');
     add_theme_support('post-thumbnails');
     add_theme_support('post_excerpt');
+
+    add_image_size( 'homepage-thumb', 360, 200 ); 
 }
     
 
