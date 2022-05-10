@@ -18,7 +18,8 @@ add_action('wp_enqueue_scripts', function(){
 });
 
 
-
+add_action( 'wp_ajax_loadmore', 'true_ajax_loadmore' );
+add_action( 'wp_ajax_nopriv_loadmore', 'true_ajax_loadmore' );
 
 function true_ajax_loadmore(){
 
@@ -68,6 +69,7 @@ function true_ajax_loadmore(){
    ));
 	die();
 }
+
 
 
 

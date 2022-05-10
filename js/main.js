@@ -1,6 +1,7 @@
 "use strict";
 
 $(document).ready(function() {
+ 
     var button = $('#loadmore a'),
     paged = button.data('paged'),
     maxPages = button.data('max_pages');
@@ -29,7 +30,9 @@ $(document).ready(function() {
                if(paged == maxPages){
                 button.remove();
             }
+
            }
        })
     });
+
 })

@@ -3,7 +3,11 @@
 
 get_header(); 
 
-get_template_part('theme-parts/navbar-homepage');
+/**
+ * 
+ * Template Name: Homepage
+ * 
+*/
   ?>
 
 <div class="home-slider">

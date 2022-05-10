@@ -18,7 +18,7 @@ class="best-works__botton-wrapper">
     data-paged="<?php echo $paged; ?>"
     data-taxonomy="<?php echo is_category() ? 'category' : get_query_var('taxonomy');?>"
     data-term_id="<?php echo get_queried_object_id();?>"
-
+    data-pagenumlink="<?php echo get_pagenum_link(1); ?>"
     class="button">
         Load more
     </a>
