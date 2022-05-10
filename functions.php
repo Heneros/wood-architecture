@@ -1,5 +1,25 @@
 <?php
 
+
+
+add_action('wp_enqueue_scripts', function(){
+	wp_enqueue_script('jquery');
+
+	wp_register_script('trueajax',
+   get_stylesheet_directory_uri() . '/js/main.js', array(), time(), true);
+   wp_localize_script(
+	   'trueajax',
+	   'droow',
+	   array(
+		   'ajax_url' => admin_url('admin-ajax.php')
+	   )
+	   );
+	   wp_enqueue_script('trueajax');
+});
+
+
+
+
 function true_ajax_loadmore(){
 
 	$paged = ! empty($_POST['paged']) ? $_POST['paged'] : 1;
@@ -74,6 +94,7 @@ function add_menu_link_class( $atts, $item, $args ) {
 
 function wood_scripts(){
     wp_enqueue_script('main-script', get_template_directory_uri() . '/js/script.js', ['jquery'], true);
+    wp_enqueue_script('second-script', get_template_directory_uri() . '/js/main.js', ['jquery'], true);
 
     wp_enqueue_style('main-style', get_template_directory_uri() . '/css/style.css', [], '1.0', 'all');
 }
