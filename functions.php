@@ -2,21 +2,6 @@
 
 
 
-add_action('wp_enqueue_scripts', function(){
-	wp_enqueue_script('jquery');
-
-	wp_register_script('trueajax',
-   get_stylesheet_directory_uri() . '/js/main.js', array(), time(), true);
-   wp_localize_script(
-	   'trueajax',
-	   'droow',
-	   array(
-		   'ajax_url' => admin_url('admin-ajax.php')
-	   )
-	   );
-	   wp_enqueue_script('trueajax');
-});
-
 
 
 
@@ -26,36 +11,47 @@ add_action("wp_ajax__nopriv_load_more_posts", "load_more_posts");
 
 
 function load_more_posts(){
-    $paged = !empty($_POST['paged']) ? $_POST['paged'] : 1;
-    $paged++;
+//     $paged = !empty($_POST['paged']) ? $_POST['paged'] : 1;
+//     $paged++;
 
-   $args = array(
-       'paged' => $paged,
-       'post_status' => 'publish'
-   );
+//    $args = array(
+//        'paged' => $paged,
+//        'post_status' => 'publish'
+//    );
 
-   $taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : '';
-   $term_id  = !empty($_POST['term_id']) ? $_POST['term_id'] : '';
+//    $taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : '';
+//    $term_id  = !empty($_POST['term_id']) ? $_POST['term_id'] : '';
 
-   if($taxonomy && $term_id){
-       $args['tax_query'] = array(
-           array(
-               'taxonomy' => $taxonomy,
-               'terms'    => $term_id
-           )
-           );
-   }
+//    if($taxonomy && $term_id){
+//        $args['tax_query'] = array(
+//            array(
+//                'taxonomy' => $taxonomy,
+//                'terms'    => $term_id
+//            )
+//            );
+//    }
 
-   query_posts($args);
-   ob_start();
-   while(have_posts()): the_post();
-   get_template_part('theme-parts/content-article');
-   endwhile;
+//    query_posts($args);
+//    ob_start();
+//    while(have_posts()): the_post();
+//    get_template_part('theme-parts/content-article');
+//    endwhile;
 
-   $posts = ob_get_contents();
-   ob_get_clean();
+//    $posts = ob_get_contents();
+//    ob_start();
+//    echo paginate_links();
+//    $pagination = ob_get_contents();
+//    ob_get_clean();
+   
 
-   die();
+
+//    echo json_encode(array(
+//      'posts' => $posts,
+// 	 'pagination' => str_replace(admin_url('admin-ajax.php'), $_POST['pagenumlink'], $pagination) 
+//    ));
+//    die();
+echo "working???";
+die();
 }
 
 
@@ -80,7 +76,7 @@ function add_menu_link_class( $atts, $item, $args ) {
 
 function wood_scripts(){
     wp_enqueue_script('main-script', get_template_directory_uri() . '/js/script.js', ['jquery'], true);
-    wp_enqueue_script('second-script', get_template_directory_uri() . '/js/main.js', ['jquery'], true);
+    wp_enqueue_script('trueajax',    get_template_directory_uri() . '/js/main.js',   ['jquery'], true);
 
     wp_enqueue_style('main-style', get_template_directory_uri() . '/css/style.css', [], '1.0', 'all');
 }

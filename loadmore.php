@@ -1,20 +1,20 @@
 <?php
 global $wp_query;
 $paged = get_query_var('paged') ? get_query_var('paged') : 1;
-
 $max_pages = $wp_query->max_num_pages;
-
-
- if($paged < $max_pages):
+$published_posts = wp_count_posts()->publish;
+$posts_per_page = get_option('posts_per_page');
+$page_number_max = ceil($published_posts / $posts_per_page);
+print_r($published_posts);
+ if($paged < $page_number_max):
 ?>
 <div 
 id="loadmore" 
 style="text-align: center;"
 class="best-works__botton-wrapper">
-
     <a 
     href="#"
-    data-max_pages="<?php echo $max_pages;?>"
+    data-max_pages="<?php echo $page_number_max;?>"
     data-paged="<?php echo $paged; ?>"
     data-taxonomy="<?php echo is_category() ? 'category' : get_query_var('taxonomy');?>"
     data-term_id="<?php echo get_queried_object_id();?>"
