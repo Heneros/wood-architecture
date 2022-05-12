@@ -5,56 +5,6 @@
 
 
 
-add_action("wp_ajax_load_more_posts", "load_more_posts");
-add_action("wp_ajax__nopriv_load_more_posts", "load_more_posts");
-
-
-
-function load_more_posts(){
-//     $paged = !empty($_POST['paged']) ? $_POST['paged'] : 1;
-//     $paged++;
-
-//    $args = array(
-//        'paged' => $paged,
-//        'post_status' => 'publish'
-//    );
-
-//    $taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : '';
-//    $term_id  = !empty($_POST['term_id']) ? $_POST['term_id'] : '';
-
-//    if($taxonomy && $term_id){
-//        $args['tax_query'] = array(
-//            array(
-//                'taxonomy' => $taxonomy,
-//                'terms'    => $term_id
-//            )
-//            );
-//    }
-
-//    query_posts($args);
-//    ob_start();
-//    while(have_posts()): the_post();
-//    get_template_part('theme-parts/content-article');
-//    endwhile;
-
-//    $posts = ob_get_contents();
-//    ob_start();
-//    echo paginate_links();
-//    $pagination = ob_get_contents();
-//    ob_get_clean();
-   
-
-
-//    echo json_encode(array(
-//      'posts' => $posts,
-// 	 'pagination' => str_replace(admin_url('admin-ajax.php'), $_POST['pagenumlink'], $pagination) 
-//    ));
-//    die();
-echo "working???";
-die();
-}
-
-
 function add_additional_class_on_li($classes, $item, $args) {
     if(isset($args->add_li_class)) {
         $classes[] = $args->add_li_class;
@@ -76,13 +26,62 @@ function add_menu_link_class( $atts, $item, $args ) {
 
 function wood_scripts(){
     wp_enqueue_script('main-script', get_template_directory_uri() . '/js/script.js', ['jquery'], true);
-    wp_enqueue_script('trueajax',    get_template_directory_uri() . '/js/main.js',   ['jquery'], true);
+    wp_enqueue_script('second-script',    get_template_directory_uri() . '/js/main.js',   ['jquery'], true);
+
+    wp_localize_script('second-script', 'wood', array('ajax_url' => admin_url('admin-ajax.php')));
+
 
     wp_enqueue_style('main-style', get_template_directory_uri() . '/css/style.css', [], '1.0', 'all');
 }
 
 add_action('wp_enqueue_scripts', 'wood_scripts');
 
+
+add_action("wp_ajax_loadmore", "load_more_posts");
+add_action("wp_ajax_nopriv_loadmore", "load_more_posts");
+
+
+
+function load_more_posts(){
+    $paged = !empty($_POST['paged']) ? $_POST['paged'] : 1;
+    $paged++;
+
+   $args = array(
+       'paged' => $paged,
+       'post_status' => 'publish'
+   );
+
+   $taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : '';
+   $term_id  = !empty($_POST['term_id']) ? $_POST['term_id'] : '';
+
+   if($taxonomy && $term_id){
+       $args['tax_query'] = array(
+           array(
+               'taxonomy' => $taxonomy,
+               'terms'    => $term_id
+           )
+           );
+   }
+
+   query_posts($args);
+   ob_start();
+   $query = new WP_Query([
+    'post_type' => 'post',
+    'order' => 'ASC'
+]);
+if($query->have_posts()):
+while ($query->have_posts()):
+   $query->the_post();
+   get_template_part('theme-parts/content-article');
+   endwhile;
+endif;
+
+
+
+
+   die();
+
+}
 
 
 if(function_exists('acf_add_options_page')){

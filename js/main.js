@@ -10,12 +10,13 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             url: wood.ajax_url,
+
             data:{
-                paged: paged,
+                paged: button.data('paged'),
                 action: 'loadmore',
-                taxonomy: button.data('taxonomy'),
-                term_id: button.data('term_id'),
-                pagenumlink: button.data('pagenumlink')
+                // taxonomy: button.data('taxonomy'),
+                // term_id: button.data('term_id'),
+                // pagenumlink: button.data('pagenumlink')
             },
             dataType: 'json',
             beforeSend: function(xhr){
@@ -25,7 +26,7 @@ $(document).ready(function() {
                 console.log(data);
                 paged++;
                 button.parent().before(data.posts);
-                $('#pagination').html(data.pagination);
+                // $('#pagination').html(data.pagination);
                 button.text("Load More");
                 if(paged == maxPages){
                     button.remove();

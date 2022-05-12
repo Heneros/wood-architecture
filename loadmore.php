@@ -5,7 +5,7 @@ $max_pages = $wp_query->max_num_pages;
 $published_posts = wp_count_posts()->publish;
 $posts_per_page = get_option('posts_per_page');
 $page_number_max = ceil($published_posts / $posts_per_page);
-print_r($published_posts);
+
  if($paged < $page_number_max):
 ?>
 <div 
