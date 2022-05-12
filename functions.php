@@ -18,61 +18,45 @@ add_action('wp_enqueue_scripts', function(){
 });
 
 
-add_action( 'wp_ajax_loadmore', 'true_ajax_loadmore' );
-add_action( 'wp_ajax_nopriv_loadmore', 'true_ajax_loadmore' );
 
-function true_ajax_loadmore(){
 
-	$paged = ! empty($_POST['paged']) ? $_POST['paged'] : 1;
+add_action("wp_ajax_load_more_posts", "load_more_posts");
+add_action("wp_ajax__nopriv_load_more_posts", "load_more_posts");
+
+
+
+function load_more_posts(){
+    $paged = !empty($_POST['paged']) ? $_POST['paged'] : 1;
     $paged++;
 
    $args = array(
-	  'paged' => $paged,
-	  'post_status' => 'publish'
+       'paged' => $paged,
+       'post_status' => 'publish'
    );
 
    $taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : '';
-   $term_id = ! empty($_POST['term_id']) ? $_POST['term_id'] : '';
+   $term_id  = !empty($_POST['term_id']) ? $_POST['term_id'] : '';
 
    if($taxonomy && $term_id){
-	   $args['tax_query'] = array(
-		   array(
-			   'taxonomy' => $taxonomy,
-			   'terms' => $term_id
-		   )
-		   );
+       $args['tax_query'] = array(
+           array(
+               'taxonomy' => $taxonomy,
+               'terms'    => $term_id
+           )
+           );
    }
 
    query_posts($args);
    ob_start();
    while(have_posts()): the_post();
-
    get_template_part('theme-parts/content-article');
-
    endwhile;
 
    $posts = ob_get_contents();
    ob_get_clean();
 
-
-
-   ob_start();
-   echo paginate_links();
-   $pagination = ob_get_contents();
-   ob_get_clean();
-   
-
-
-   echo json_encode(array(
-     'posts' => $posts,
-	 'pagination' => str_replace(admin_url('admin-ajax.php'), $_POST['pagenumlink'], $pagination) 
-   ));
-	die();
+   die();
 }
-
-
-
-
 
 
 function add_additional_class_on_li($classes, $item, $args) {
