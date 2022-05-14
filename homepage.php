@@ -109,16 +109,28 @@ get_header();
 		<div class="container">
 			<div class="row">
 				<?php
-		             $query = new WP_Query([
-                         'post_type' => 'post',
-						 'order' => 'ASC'
-                     ]);
-				if($query->have_posts()):
-					while ($query->have_posts()):
-						$query->the_post();
-				get_template_part('theme-parts/content-article'); 
-				endwhile;
-				endif;
+			  $paged = (get_query_var('paged')) ? get_query_var('paged') : 0;
+			  $postsPerPage = 3;
+			  $postOffset = $paged * $postsPerPage;
+			  $args = array(
+				  'post_type' => 'post',
+				  'offset'            => $postOffset,
+				  'posts_per_page'    => $postsPerPage,
+				  'order' => 'ASC'
+			  );
+			  $all_posts = new WP_Query(['post_type' => 'post']); wp_reset_postdata();
+			  $postlist = new WP_Query($args);
+			  
+		        //      $query = new WP_Query([
+                //          'post_type' => 'post',
+				// 		 'order' => 'ASC'
+                //      ]);
+				// if($query->have_posts()):
+				// 	while ($query->have_posts()):
+				// 		$query->the_post();
+				// get_template_part('theme-parts/content-article'); 
+				// endwhile;
+				// endif;
 				?>
 			</div>
 		</div>

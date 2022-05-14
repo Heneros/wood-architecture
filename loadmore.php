@@ -11,7 +11,7 @@ $page_number_max = ceil($published_posts / $posts_per_page);
 <div 
 id="loadmore" 
 style="text-align: center;"
-class="best-works__botton-wrapper">
+class="best-works__botton-wrapper"> 
     <a 
     href="#"
     data-max_pages="<?php echo $page_number_max;?>"
@@ -19,7 +19,8 @@ class="best-works__botton-wrapper">
     data-taxonomy="<?php echo is_category() ? 'category' : get_query_var('taxonomy');?>"
     data-term_id="<?php echo get_queried_object_id();?>"
     data-pagenumlink="<?php echo get_pagenum_link(1); ?>"
-    class="button">
+    class="button"
+    >
         Load more
     </a>
 </div>  
