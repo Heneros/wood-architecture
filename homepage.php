@@ -120,7 +120,26 @@ get_header();
 			  );
 			  $all_posts = new WP_Query(['post_type' => 'post']); wp_reset_postdata();
 			  $postlist = new WP_Query($args);
-			  
+			  if($postlist->have_posts()):
+				while($postlist->have_posts()):
+					$postlist->the_post();
+					?>
+					<div 
+					id="post-<?php the_ID(); ?>" 
+					class="col-md-4 best-works__item-wrapper" <?php post_class(); ?> >
+									<a href="#!" class="best-item">
+										<div class="best-item__img-wrapper">
+											<?= the_post_thumbnail('homepage-thumb') ?>
+										</div>
+										<div class="best-item__content">
+											<div class="address-line" title="<?= the_title(); ?>"><?= the_title(); ?></div>
+											<div class="best-item__desc"><?= the_excerpt(); ?></div>
+										</div>
+							</a>
+					</div>
+					<?php
+				endwhile;
+			    endif;
 		        //      $query = new WP_Query([
                 //          'post_type' => 'post',
 				// 		 'order' => 'ASC'
