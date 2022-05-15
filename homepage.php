@@ -107,7 +107,7 @@ get_header();
 
 	<div class="best-works__bottom">
 		<div class="container">
-			<div class="row">
+			<div class="row posts__homepage">
 				<?php
 			  $paged = (get_query_var('paged')) ? get_query_var('paged') : 0;
 			  $postsPerPage = 3;
@@ -139,6 +139,7 @@ get_header();
 					</div>
 					<?php
 				endwhile;
+				wp_reset_postdata();
 			    endif;
 		        //      $query = new WP_Query([
                 //          'post_type' => 'post',
@@ -153,9 +154,17 @@ get_header();
 				?>
 			</div>
 		</div>
-         <?php  
-         get_template_part('loadmore');
+         <?php 
+        //  get_template_part('loadmore');
          ?>
+		 <a 
+		 style="text-align: center;"
+		 id="more_posts"
+		 href="#!"
+		 class="best-works__botton-wrapper"
+		 >
+		Load More
+		</a>
 	</div>
 </section>
 
@@ -364,10 +373,42 @@ get_header();
 	</div>
 </section>
 <!---Our Blog End-->
+<script>
+ var ppp = 3;
+ var pageNumber = 1;
 
-
-
-
+ function load_posts(){
+	 pageNumber++;
+	 var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=more_post_ajax';
+	 $.ajax({
+		 type: "POST",
+		 dataType: "html",
+		 url: '/wp-admin/admin-ajax.php',
+		 data: str,
+		 beforeSend: function(xhr){
+			 $("#more_posts").hide();
+		 },
+		 success: function(data){
+			 var $data = $(data);
+			 if($data.length){
+				 $(".posts__homepage").append($data);
+				 $("#more_posts").show();
+			 }else{
+				$("#more_posts").attr("disabled", true);
+			 }
+		 },
+		 error : function(jqXHR, textStatus, errorThrown) {
+            $loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+        }
+	 });
+	 return false;
+ }
+ $("#more_posts").on("click", function(e){
+	 e.preventDefault();
+	 $("#more_posts").attr("disabled", true);
+	 load_posts();
+ });
+</script>
 <?php 
 get_template_part('theme-parts/modal');
 
