@@ -1,7 +1,35 @@
 <?php
 
 
+function more_post_ajax(){
+    $ppp = (isset($_POST["ppp"])) ? ($_POST["ppp"]) : 3;
+    $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
+    header("Content-Type: text/html");
+    $args = array(
+        'post_type' => 'post',
+        'posts_per_page'    => $ppp,
+        'paged'             => $pageNumber,
+    );
+    $postslist = new WP_Query($args);
+    $out = '';
+    if ($postslist->have_posts()) : while ($postslist->have_posts()) : $postslist->the_post(); 
+    ?>
+            <div id="post-<?php the_ID(); ?>" 
+            class="col-md-4 best-works__item-wrapper" <?php post_class(); ?> >
+                                <a href="#!" class="best-item">
+                                    <div class="best-item__img-wrapper">
+                                        <?= the_post_thumbnail('homepage-thumb') ?>
+                                    </div>
+                                    <div class="best-item__content">
+                                        <div class="address-line" title="<?= the_title(); ?>"><?= the_title(); ?></div>
+                                        <div class="best-item__desc"><?= the_excerpt(); ?></div>
+                                    </div>
+                        </a>
+            </div>
 
+     <?php
+    endwhile; endif;  wp_reset_postdata(); die();
+}
 
 
 
@@ -42,43 +70,43 @@ add_action("wp_ajax_nopriv_loadmore", "load_more_posts");
 
 
 
-function load_more_posts(){
-    $paged = !empty($_POST['paged']) ? $_POST['paged'] : 1;
-    $paged++;
+// function load_more_posts(){
+//     $paged = !empty($_POST['paged']) ? $_POST['paged'] : 1;
+//     $paged++;
 
-   $args = array(
-       'paged' => $paged,
-       'post_status' => 'publish'
-   );
+//    $args = array(
+//        'paged' => $paged,
+//        'post_status' => 'publish'
+//    );
 
-   $taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : '';
-   $term_id  = !empty($_POST['term_id']) ? $_POST['term_id'] : '';
+//    $taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : '';
+//    $term_id  = !empty($_POST['term_id']) ? $_POST['term_id'] : '';
 
-   if($taxonomy && $term_id){
-       $args['tax_query'] = array(
-           array(
-               'taxonomy' => $taxonomy,
-               'terms'    => $term_id
-           )
-           );
-   }
+//    if($taxonomy && $term_id){
+//        $args['tax_query'] = array(
+//            array(
+//                'taxonomy' => $taxonomy,
+//                'terms'    => $term_id
+//            )
+//            );
+//    }
 
-   query_posts($args);
-   ob_start();
-   $query = new WP_Query([
-    'post_type' => 'post',
-    'order' => 'ASC'
-]);
-if($query->have_posts()):
-while ($query->have_posts()):
-   $query->the_post();
-   get_template_part('theme-parts/content-article');
-   endwhile;
-endif;
-   die();
+//    query_posts($args);
+//    ob_start();
+//    $query = new WP_Query([
+//     'post_type' => 'post',
+//     'order' => 'ASC'
+// ]);
+// if($query->have_posts()):
+// while ($query->have_posts()):
+//    $query->the_post();
+//    get_template_part('theme-parts/content-article');
+//    endwhile;
+// endif;
+//    die();
 
 
-}
+// }
 
 add_action('wp_ajax_wood_loadmore_ajax_handler', 'wood_loadmore_ajax_handler');
 add_action('wp_ajax_nopriv_wood_loadmore_ajax_handler', 'wood_loadmore_ajax_handler');
