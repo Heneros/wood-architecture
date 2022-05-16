@@ -6,31 +6,35 @@ function more_post_ajax(){
     $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
     header("Content-Type: text/html");
     $args = array(
+        'suppress_filters'  => true,
         'post_type' => 'post',
         'posts_per_page'    => $ppp,
         'paged'             => $pageNumber,
+        'order'             => 'ASC'
     );
     $postslist = new WP_Query($args);
     $out = '';
     if ($postslist->have_posts()) : while ($postslist->have_posts()) : $postslist->the_post(); 
     ?>
-            <div id="post-<?php the_ID(); ?>" 
-            class="col-md-4 best-works__item-wrapper" <?php post_class(); ?> >
-                                <a href="#!" class="best-item">
-                                    <div class="best-item__img-wrapper">
-                                        <?= the_post_thumbnail('homepage-thumb') ?>
-                                    </div>
-                                    <div class="best-item__content">
-                                        <div class="address-line" title="<?= the_title(); ?>"><?= the_title(); ?></div>
-                                        <div class="best-item__desc"><?= the_excerpt(); ?></div>
-                                    </div>
-                        </a>
-            </div>
-
-     <?php
+    <div 
+    data-id="<?= $postslist->post->ID; ?>"
+    class="col-md-4 best-works__item-wrapper" <?php post_class(); ?> >
+                        <a href="#!" class="best-item">
+                            <div class="best-item__img-wrapper">
+                                <?= the_post_thumbnail('homepage-thumb') ?>
+                            </div>
+                            <div class="best-item__content">
+                                <div class="address-line" title="<?= the_title(); ?>"><?= the_title(); ?></div>
+                                <div class="best-item__desc"><?= the_excerpt(); ?></div>
+                            </div>
+                </a>
+    </div>
+<?php
     endwhile; endif;  wp_reset_postdata(); die();
 }
 
+add_action('wp_ajax_nopriv_more_post_ajax', 'more_post_ajax');
+add_action('wp_ajax_more_post_ajax', 'more_post_ajax');
 
 
 function add_additional_class_on_li($classes, $item, $args) {

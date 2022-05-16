@@ -116,7 +116,8 @@ get_header();
 				  'post_type' => 'post',
 				  'offset'            => $postOffset,
 				  'posts_per_page'    => $postsPerPage,
-				  'order' => 'ASC'
+				//   'orderby'           => 'post_date',
+				  'order'             => 'ASC'
 			  );
 			  $all_posts = new WP_Query(['post_type' => 'post']); wp_reset_postdata();
 			  $postlist = new WP_Query($args);
@@ -155,18 +156,10 @@ get_header();
 			</div>
 		</div>
          <?php 
-        //  get_template_part('loadmore');
+         get_template_part('loadmore');
+	//    if($paged < $page_number_max ):
          ?>
-		 <div class="best-works__botton-wrapper">
-		 <a 
-		 style="text-align: center;"
-		 id="more_posts"
-		 href="#!"
-		 class="best-works__botton-wrapper"
-		 >
-		Load More
-		</a>
-		 </div>
+	
 	</div>
 </section>
 
@@ -385,7 +378,7 @@ get_header();
 	 $.ajax({
 		 type: "POST",
 		 dataType: "html",
-		 url: '/wp-admin/admin-ajax.php',
+	     url: wood.ajax_url,
 		 data: str,
 		 beforeSend: function(xhr){
 			 $("#more_posts").hide();

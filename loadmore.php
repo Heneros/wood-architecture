@@ -9,10 +9,10 @@ $page_number_max = ceil($published_posts / $posts_per_page);
  if($paged < $page_number_max):
 ?>
 <div 
-id="loadmore" 
 style="text-align: center;"
 class="best-works__botton-wrapper"> 
     <a 
+    id="more_posts"
     href="#"
     data-max_pages="<?php echo $page_number_max;?>"
     data-paged="<?php echo $paged; ?>"
