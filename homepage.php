@@ -157,6 +157,7 @@ get_header();
          <?php 
         //  get_template_part('loadmore');
          ?>
+		 <div class="best-works__botton-wrapper">
 		 <a 
 		 style="text-align: center;"
 		 id="more_posts"
@@ -165,6 +166,7 @@ get_header();
 		 >
 		Load More
 		</a>
+		 </div>
 	</div>
 </section>
 
