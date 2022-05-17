@@ -142,81 +142,80 @@ get_header();
 				endwhile;
 				wp_reset_postdata();
 			    endif;
-		        //      $query = new WP_Query([
-                //          'post_type' => 'post',
-				// 		 'order' => 'ASC'
-                //      ]);
-				// if($query->have_posts()):
-				// 	while ($query->have_posts()):
-				// 		$query->the_post();
-				// get_template_part('theme-parts/content-article'); 
-				// endwhile;
-				// endif;
 				?>
 			</div>
 		</div>
          <?php 
          get_template_part('loadmore');
-	//    if($paged < $page_number_max ):
          ?>
-	
 	</div>
 </section>
-
+<?php
+$items_about_us = get_field('items_about_us');
+$slider_homepage_about_us = get_field('slider_homepage_about_us');
+if(!empty($items_about_us && $slider_homepage_about_us)):
+?>
 <section class="advantages">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 advantages-slider-wrapper">
 				<div class="advantages-slider">
 					<div class="swiper-wrapper">
+					<?php 
+					if(have_rows('slider_homepage_about_us')):
+						while(have_rows('slider_homepage_about_us')):
+							the_row();
+							$image = get_sub_field('image');
+					?>
 						<div class="swiper-slide">
-							<img src="images/portfolio/interior-6_adv.jpg" alt="">
+							<img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['attr']); ?>">
 						</div>
-						<div class="swiper-slide">
-							<img src="images/portfolio/interior-8_adv.jpg" alt="">
-						</div>
+						<?php
+					endwhile;
+					endif;
+					wp_reset_postdata();
+					?>
 					</div>
-					<div class="advantages-slider__caption">32 <span>years on market</span></div>
+					<div class="advantages-slider__caption"><?= get_field('number_of_years'); ?> <span>years on market</span></div>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="section-title section-title--dotted">
-					<div class="section-title__name">About us</div>
-					<div class="section-title__desc">We creating best and comfortable design for you</div>
+					<div class="section-title__name"><?= get_field('main_title_about_us'); ?></div>
+					<div class="section-title__desc"><?= get_field('sub_title_about_us'); ?></div>
 					<div class="section-title__paragraph">
-						Lorem ipsum, dolor sit amet consectetur adipisicing elit. In nisi quod est illum neque hic facere adipisci minus architecto, modi, labore at nam distinctio amet.
+					<?= get_field('description_about_us');  ?>
 					</div>
 				</div>
-
 				<div class="row">
+					<?php 
+					if(have_rows('items_about_us')):
+						while(have_rows('items_about_us')):
+							the_row();
+							$icon = get_sub_field('icon');
+					?>
 					<div class="col-md-6 advantages__item-wrapper">
 						<div class="item-advantages">
-							<a href="#!" class="item-advantages__heading">
+							<a href="<?= get_sub_field('button_link'); ?>" class="item-advantages__heading">
 								<div class="item-advantages__icon-wrapper">
-									<img src="images/advantages/eco.svg" alt="alt">	</div>
-									<div class="item-advantages__heading-text">Safe Materials</div>
+									<img src="<?= esc_url($icon['url']); ?>" alt="<?= esc_attr($icon['alt']); ?>">	</div>
+									<div class="item-advantages__heading-text"><?= get_sub_field('title'); ?></div>
 								</a>
-								<p class="item-advantages__desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum corrupti enim, unde ipsum magni beatae accusamus aspernatur itaque id rem eaque? Rem expedita quaerat ipsa?</p>
-								<a href="#!" class="read-more item-advantages__more">Read More</a>
+								<p class="item-advantages__desc"><?= get_sub_field('description'); ?></p>
+								<a href="<?= get_sub_field('button_link'); ?>" class="read-more item-advantages__more"><?= get_sub_field('button_text'); ?></a>
 						</div>
 					</div>
-					<div class="col-md-6 advantages__item-wrapper">
-						<div class="item-advantages">
-							<a href="#!" class="item-advantages__heading">
-								<div class="item-advantages__icon-wrapper">
-									<img src="images/advantages/wood.svg" alt="alt">	</div>
-									<div class="item-advantages__heading-text">Safe Materials</div>
-								</a>
-								<p class="item-advantages__desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum corrupti enim, unde ipsum magni beatae accusamus aspernatur itaque id rem eaque? Rem expedita quaerat ipsa?</p>
-								<a href="#!" class="read-more item-advantages__more">Read More</a>
-						</div>
-					</div>
+					<?php
+					endwhile;
+					endif;
+					wp_reset_postdata();
+					?>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </section>   
+<?php endif; ?>
 <!---Our Partners-->      
 <section class="our__partners" style="background-image: url('images/our-partners/bg-our-partners.png');     background-size: cover;">
 	<div class="container">
