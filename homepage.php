@@ -216,78 +216,56 @@ if(!empty($items_about_us && $slider_homepage_about_us)):
 	</div>
 </section>   
 <?php endif; ?>
+
+<?php 
+$our_partners_items = get_field('our_partners_items');
+?>
 <!---Our Partners-->      
-<section class="our__partners" style="background-image: url('images/our-partners/bg-our-partners.png');     background-size: cover;">
+<?php if(!empty($our_partners_items )):?>
+<section class="our__partners" style="background-image: url('<?= get_field('background_image_our_partners'); ?>');     background-size: cover;">
 	<div class="container">
 	<div class="row">
-		<h1 class="our__partners-title">Our Partners</h1>
+		<h1 class="our__partners-title"><?= get_field('main_title_our_partners'); ?></h1>
+		<?php if(have_rows('our_partners_items')): ?>
 		<div class="our__partners-items">
+		<?php while(have_rows('our_partners_items')):  the_row();
+			$icon = get_sub_field('icon');
+			$title = get_sub_field('title');
+			$text = get_sub_field('text');
+			?>
 		<div class="col-md-3 col-12">
 			<div class="item__our-partner">
 				<div class="image__block">
-					<img src="images/our-partners/logo-first.png" alt="our-partner">
+					<img src="<?php echo esc_url($icon['url']);  ?>" alt="<?php echo esc_attr($icon['alt']);  ?>">
 				</div>
 				<div class="description__item-partner">
 					<span class="company__name-partner">
-						Milano Parquet S.R.L.
+					<?= $title; ?>
 					</span>
-								We take care of the wood and carefully monitor the entire production process.
+					<?= $text; ?>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3 col-12">
-			<div class="item__our-partner">
-				<div class="image__block">
-					<img src="images/our-partners/logo-second.png" alt="our-partner">
-				</div>
-				<div class="description__item-partner">
-					<span class="company__name-partner">
-						Milano Parquet S.R.L.
-					</span>
-								We take care of the wood and carefully monitor the entire production process.
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 col-12">
-			<div class="item__our-partner">
-				<div class="image__block">
-					<img src="images/our-partners/logo-third.png" alt="our-partner">
-				</div>
-				<div class="description__item-partner">
-					<span class="company__name-partner">
-						Milano Parquet S.R.L.
-					</span>
-								We take care of the wood and carefully monitor the entire production process.
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 col-12">
-			<div class="item__our-partner">
-				<div class="image__block">
-					<img src="images/our-partners/logo-fourth.png" alt="our-partner">
-				</div>
-				<div class="description__item-partner">
-					<span class="company__name-partner">
-						Milano Parquet S.R.L.
-					</span>
-								We take care of the wood and carefully monitor the entire production process.
-				</div>
-			</div>
-		</div>
+		<?php endwhile; ?>
 	</div>  
+   <?php endif; ?>
 	</div>
 </div>
 </section>
+<?php endif; ?>
 <!---Our Blog-->
+
 <section class="our__blog">
 	<div class="container">
         <div class="row">
-			<h1 class="main__title-blog">Our Blog</h1>
-	
+			<h1 class="main__title-blog"><?= get_field('our_blog_title'); ?></h1>
 			<div class="col-md-8  slider__blog-home ">
 			<div class="slider__blog">
 	          <div class="swiper-wrapper"> 
 				<div class="swiper-slide item__slider-blog">
+					<?php 
+				$posts_selected = get_field('posts_selected');
+				?>
 				   <div class="image__blog">
 						<img src="images/our-blog/first-item.png" alt="item slider">
 						<div class="date__item-blog">2 January</div>
@@ -300,47 +278,7 @@ if(!empty($items_about_us && $slider_homepage_about_us)):
 						Full Story 
 					</a>
 				</div> 
-				<div class="swiper-slide item__slider-blog">
-					<div class="image__blog">
-						<img src="images/our-blog/second-item.png" alt="item slider">
-						<div class="date__item-blog">7 January</div>
-					</div>
 			
-					<h2 class="title__blog-item">Lorem ipsum dolor sit.</h2>
-					<div class="description__blog">
-						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, assumenda eum iure nulla alias voluptatum?
-					</div>
-					<a href="#!" class="full__story">
-						Full Story 
-					</a>
-				</div>
-				<div class="swiper-slide item__slider-blog">
-					<div class="image__blog">
-						<img src="images/our-blog/first-item.png" alt="item slider">
-						<div class="date__item-blog">8 January</div>
-					</div>
-			
-					<h2 class="title__blog-item">Lorem ipsum dolor sit.</h2>
-					<div class="description__blog">
-						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, assumenda eum iure nulla alias voluptatum?
-					</div>
-					<a href="#!" class="full__story">
-						Full Story 
-					</a>
-				</div>
-				<div class="swiper-slide item__slider-blog">
-					<div class="image__blog">
-						<img src="images/our-blog/first-item.png" alt="item slider">
-						<div class="date__item-blog">8 January</div>
-					</div>
-					<h2 class="title__blog-item">Lorem ipsum dolor sit</h2>
-					<div class="description__blog">
-						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, assumenda eum iure nulla alias voluptatum?
-					</div>
-					<a href="#!" class="full__story">
-						Full Story 
-					</a>
-				</div>
 			</div> <!--swiper-wrapper--->
             <div class="row slider__bottom-pagination">
 				<div class="blog-slider__pagination swiper-pagination"></div>
@@ -349,7 +287,7 @@ if(!empty($items_about_us && $slider_homepage_about_us)):
 	</div><!---col-md-8-->   
 			<div class="col-md-4 ">
 				<div style="background-image: url('images/our-blog/all-posts.png');" class="all__posts">
-					<a href="blog.html">
+					<a href="">
 					<div class="block__image-adaptive">
 						<img src="images/our-blog/all-posts.png" alt="all posts">
 						<span class="see__all-posts--adaptive" >
@@ -357,7 +295,9 @@ if(!empty($items_about_us && $slider_homepage_about_us)):
 						</span>   
 					</div>
 					<span class="see__all-posts" >
+						<a href="<?php echo site_url("/blog")?>">
 						See All Posts
+						</a>
 					</span>   
 				</a>
 				</div>
