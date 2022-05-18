@@ -254,7 +254,10 @@ $our_partners_items = get_field('our_partners_items');
 </section>
 <?php endif; ?>
 <!---Our Blog-->
-
+<?php 
+$posts_selected = get_field('posts_selected');
+if(!empty($posts_selected)):
+?>
 <section class="our__blog">
 	<div class="container">
         <div class="row">
@@ -262,23 +265,28 @@ $our_partners_items = get_field('our_partners_items');
 			<div class="col-md-8  slider__blog-home ">
 			<div class="slider__blog">
 	          <div class="swiper-wrapper"> 
-				<div class="swiper-slide item__slider-blog">
-					<?php 
-				$posts_selected = get_field('posts_selected');
+			  <?php 
+				foreach($posts_selected as $post_selected):
+					$date_post = $post_selected->post_date;
+					$title_post = $post_selected->post_title;
+					$featured_img_url = wp_get_attachment_image(get_post_thumbnail_id($post_selected->ID), 'homepage-slider');
+					// $featured_img_url = wp_get_attachment_image('homepage-slider');
+					$permalink = get_permalink( $post_selected->ID );
 				?>
+			  <div class="swiper-slide item__slider-blog">
 				   <div class="image__blog">
-						<img src="images/our-blog/first-item.png" alt="item slider">
-						<div class="date__item-blog">2 January</div>
+					<?php echo $featured_img_url; ?>
+						<div class="date__item-blog"><?php echo $date_post; ?></div>
 					</div>
-					<h2 class="title__blog-item">Lorem ipsum dolor sit.</h2>
+					<h2 class="title__blog-item"><?= $title_post; ?></h2>
 					<div class="description__blog">
-						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, assumenda eum iure nulla alias voluptatum?
+	                <?php the_excerpt(); ?>
 					</div>
-					<a href="#!" class="full__story">
+					<a href="<?= $permalink; ?>" class="full__story">
 						Full Story 
 					</a>
 				</div> 
-			
+				<?php endforeach; ?>
 			</div> <!--swiper-wrapper--->
             <div class="row slider__bottom-pagination">
 				<div class="blog-slider__pagination swiper-pagination"></div>
@@ -306,6 +314,7 @@ $our_partners_items = get_field('our_partners_items');
 		</div>
 	</div>
 </section>
+<?php endif; ?>
 <!---Our Blog End-->
 <script>
  var ppp = 3;

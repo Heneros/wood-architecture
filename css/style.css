@@ -7506,3 +7506,12 @@ progress {
 
 [hidden] {
   display: none !important; }
+
+
+
+/* .our__blog .slider__blog-home .swiper-wrapper .item__slider-blog .image__blog img {
+    max-height: 252px;
+} */
+.our__blog .slider__blog-home .swiper-wrapper .item__slider-blog .full__story{
+  font-family: raleway-wt, sans-serif, Arial;
+}
