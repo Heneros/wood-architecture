@@ -1390,7 +1390,7 @@ span.top-menu__link {
             width: 3px;
             background-color: #F88500; }
         .our__blog .slider__blog-home .swiper-wrapper .item__slider-blog .description__blog {
-          font-family: 'raleway-wt';
+          font-family: raleway-wt, sans-serif, Arial;
           font-style: normal;
           font-weight: 400;
           font-size: 14px;
@@ -1398,7 +1398,7 @@ span.top-menu__link {
         .our__blog .slider__blog-home .swiper-wrapper .item__slider-blog .full__story {
           padding-top: 13px;
           color: #333;
-          font-family: 'raleway-wt';
+          font-family: raleway-wt, sans-serif, Arial;
           -webkit-text-decoration-line: underline;
                   text-decoration-line: underline;
           font-weight: 800;
@@ -2346,7 +2346,7 @@ footer {
           text-transform: uppercase; }
       .blog__company .main__blog .item__blog .title__blog-item {
         color: #333;
-        font-family: 'raleway-wt';
+        font-family: raleway-wt, sans-serif, Arial;
         font-weight: 800;
         font-size: 18px;
         line-height: 140%;
@@ -2365,7 +2365,7 @@ footer {
           width: 3px;
           background-color: #F88500; }
       .blog__company .main__blog .item__blog .description__blog {
-        font-family: 'raleway-wt';
+        font-family: raleway-wt, sans-serif, Arial;
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
@@ -2373,7 +2373,7 @@ footer {
       .blog__company .main__blog .item__blog .full__story {
         padding-top: 13px;
         color: #333;
-        font-family: 'raleway-wt';
+        font-family: raleway-wt, sans-serif, Arial;
         -webkit-text-decoration-line: underline;
                 text-decoration-line: underline;
         font-weight: 800;
@@ -7513,5 +7513,8 @@ progress {
     max-height: 252px;
 } */
 .our__blog .slider__blog-home .swiper-wrapper .item__slider-blog .full__story{
+  font-family: raleway-wt, sans-serif, Arial;
+}
+.our__blog .slider__blog-home .swiper-wrapper .item__slider-blog .description__blog{
   font-family: raleway-wt, sans-serif, Arial;
 }

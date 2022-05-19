@@ -98,6 +98,15 @@ function wood_setup() {
     add_image_size( 'homepage-thumb', 360, 200 ); 
     add_image_size( 'homepage-slider', 395, 220 ); 
 }
-    
+function custom_excerpt_length( $length ) {
+    return 20;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+remove_filter('the_excerpt', 'wpautop');
+function trim_excerpt($text) {
+return rtrim($text,'[&hellip;]');
+}
+add_filter('get_the_excerpt', 'trim_excerpt');
 
 ?>
