@@ -1,7 +1,8 @@
 <?php
 
 
-function more_post_ajax(){
+function more_post_ajax()
+{
     $ppp = (isset($_POST["ppp"])) ? ($_POST["ppp"]) : 3;
     $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
     header("Content-Type: text/html");
@@ -10,53 +11,57 @@ function more_post_ajax(){
         'post_type' => 'post',
         'posts_per_page'    => $ppp,
         'paged'             => $pageNumber,
-        'order'             => 'ASC'
+        'Service'             => 'ASC'
     );
     $postslist = new WP_Query($args);
     $out = '';
-    if ($postslist->have_posts()) : while ($postslist->have_posts()) : $postslist->the_post(); 
-    ?>
-    <div 
-    data-id="<?= $postslist->post->ID; ?>"
-    class="col-md-4 best-works__item-wrapper" <?php post_class(); ?> >
-                        <a href="#!" class="best-item">
-                            <div class="best-item__img-wrapper">
-                                <?= the_post_thumbnail('homepage-thumb') ?>
-                            </div>
-                            <div class="best-item__content">
-                                <div class="address-line" title="<?= the_title(); ?>"><?= the_title(); ?></div>
-                                <div class="best-item__desc"><?= the_excerpt(); ?></div>
-                            </div>
+    if ($postslist->have_posts()) : while ($postslist->have_posts()) : $postslist->the_post();
+?>
+            <div data-id="<?= $postslist->post->ID; ?>" class="col-md-4 best-works__item-wrapper" <?php post_class(); ?>>
+                <a href="#!" class="best-item">
+                    <div class="best-item__img-wrapper">
+                        <?= the_post_thumbnail('homepage-thumb') ?>
+                    </div>
+                    <div class="best-item__content">
+                        <div class="address-line" title="<?= the_title(); ?>"><?= the_title(); ?></div>
+                        <div class="best-item__desc"><?= the_excerpt(); ?></div>
+                    </div>
                 </a>
-    </div>
+            </div>
 <?php
-    endwhile; endif;  wp_reset_postdata(); die();
+        endwhile;
+    endif;
+    wp_reset_postdata();
+    die();
 }
 
 add_action('wp_ajax_nopriv_more_post_ajax', 'more_post_ajax');
 add_action('wp_ajax_more_post_ajax', 'more_post_ajax');
 
 
-function add_additional_class_on_li($classes, $item, $args) {
-    if(isset($args->add_li_class)) {
+function add_additional_class_on_li($classes, $item, $args)
+{
+    if (isset($args->add_li_class)) {
         $classes[] = $args->add_li_class;
     }
     return $classes;
 }
 add_filter('nav_menu_css_class', 'add_additional_class_on_li', 1, 3);
 
-function add_menu_link_class( $atts, $item, $args ) {
+function add_menu_link_class($atts, $item, $args)
+{
     if (property_exists($args, 'link_class')) {
-      $atts['class'] = $args->link_class;
+        $atts['class'] = $args->link_class;
     }
     return $atts;
-  }
-  add_filter( 'nav_menu_link_attributes', 'add_menu_link_class', 1, 3 );
+}
+add_filter('nav_menu_link_attributes', 'add_menu_link_class', 1, 3);
 
 
 
 
-function wood_scripts(){
+function wood_scripts()
+{
     wp_enqueue_script('main-script', get_template_directory_uri() . '/js/script.js', ['jquery'], true);
     wp_enqueue_script('second-script',    get_template_directory_uri() . '/js/main.js',   ['jquery'], true);
 
@@ -75,7 +80,7 @@ add_action("wp_ajax_nopriv_loadmore", "load_more_posts");
 
 add_action('wp_ajax_wood_loadmore_ajax_handler', 'wood_loadmore_ajax_handler');
 add_action('wp_ajax_nopriv_wood_loadmore_ajax_handler', 'wood_loadmore_ajax_handler');
-if(function_exists('acf_add_options_page')){
+if (function_exists('acf_add_options_page')) {
     acf_add_options_page(array(
         'page_title' => 'Theme General Settings',
         'menu_title' => 'Theme Settings',
@@ -86,7 +91,8 @@ if(function_exists('acf_add_options_page')){
 };
 
 add_action('after_setup_theme', 'wood_setup');
-function wood_setup() {
+function wood_setup()
+{
     register_nav_menu("menu-header", "Menu Header");
 
 
@@ -95,18 +101,36 @@ function wood_setup() {
     add_theme_support('post-thumbnails');
     add_theme_support('post_excerpt');
 
-    add_image_size( 'homepage-thumb', 360, 200 ); 
-    add_image_size( 'homepage-slider', 395, 220 ); 
+    add_image_size('homepage-thumb', 360, 200);
+    add_image_size('homepage-slider', 395, 220);
 }
-function custom_excerpt_length( $length ) {
-    return 20;
-}
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
-remove_filter('the_excerpt', 'wpautop');
-function trim_excerpt($text) {
-return rtrim($text,'[&hellip;]');
+add_action("init", "wood_registration_types");
+function wood_registration_types()
+{
+    register_post_type('services', [
+        'labels' => [
+            'name'               => 'Services',
+            'singular_name'      => 'Service',
+            'add_new'            => 'Add new Service',
+            'add_new_item'       => 'Add new Service',
+            'edit_item'          => 'Edit Service',
+            'new_item'           => 'New Service',
+            'view_item'          => 'Watch Services',
+            'search_items'       => 'Search Service',
+            'not_found'          => 'Not found',
+            'not_found_in_trash' => 'Not found in bin',
+            'parent_item_colon'  => '',
+            'menu_name'          => 'Services',
+        ],
+        'public'              => true,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_icon'           => 'dashicons-admin-tools',
+        'hierarchical'        => false,
+        'supports'            => ['title', 'editor', 'author', 'thumbnail', 'excerpt'],
+        'has_archive' => true
+    ]);
 }
-add_filter('get_the_excerpt', 'trim_excerpt');
 
 ?>
