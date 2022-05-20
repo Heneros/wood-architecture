@@ -152,7 +152,8 @@ function wood_registration_types()
         'show_in_menu'        => true,
         'menu_icon'           => 'dashicons-admin-tools',
         'hierarchical'        => false,
-        'supports'            => ['title', 'editor', 'author', 'thumbnail', 'excerpt'],
+        'supports'            => ['title', 'editor', 'author', 'thumbnail',  'excerpt'],
+        'taxonomies'         => array('category', 'post_tag'),
         'has_archive' => true
     ]);
 }
