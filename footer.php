@@ -31,7 +31,7 @@
 			<div class="col-md-6">
 				<div class="right__side-footer">
 					<div class="services__footer">
-						<span class="title__aboutUs-footer"> <a href="<?= site_url('/services'); ?>"> Services </a></span>
+						<a href="<?= site_url('/services'); ?>"> <span class="title__aboutUs-footer"> Services </span></a>
 						<?php
 						$query = new WP_Query([
 							'post_type' => 'services',

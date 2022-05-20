@@ -10875,3 +10875,9 @@ progress {
 footer span {
   font-family: "raleway-wt", sans-serif, Arial !important;
 } 
+.services__footer a{
+    text-decoration: none;
+}
+.navbar__white .top-menu__link{
+  font-weight: 600;
+}

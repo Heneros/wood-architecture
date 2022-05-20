@@ -131,6 +131,30 @@ function wood_registration_types()
         'supports'            => ['title', 'editor', 'author', 'thumbnail', 'excerpt'],
         'has_archive' => true
     ]);
+
+    register_post_type('our-projects', [
+        'labels' => [
+            'name'               => 'Projects',
+            'singular_name'      => 'Project',
+            'add_new'            => 'Add new Project',
+            'add_new_item'       => 'Add new Project',
+            'edit_item'          => 'Edit Project',
+            'new_item'           => 'New Project',
+            'view_item'          => 'Watch Projects',
+            'search_items'       => 'Search Project',
+            'not_found'          => 'Not found',
+            'not_found_in_trash' => 'Not found in bin',
+            'parent_item_colon'  => '',
+            'menu_name'          => 'Projects',
+        ],
+        'public'              => true,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_icon'           => 'dashicons-admin-tools',
+        'hierarchical'        => false,
+        'supports'            => ['title', 'editor', 'author', 'thumbnail', 'excerpt'],
+        'has_archive' => true
+    ]);
 }
 
 ?>
