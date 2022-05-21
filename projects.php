@@ -26,7 +26,8 @@ get_header();
     $query = new WP_Query([
         'post_type' => 'our-projects',
         'paged' => $paged,
-        'posts_per_page' => -1
+        'posts_per_page' => -1,
+        'order' => 'ASC'
     ]);
     if ($query->have_posts()) :
     ?>
@@ -34,15 +35,17 @@ get_header();
             <?php
             while ($query->have_posts()) :
                 $query->the_post();
-                $featured_img = get_the_post_thumbnail_url()
+                $featured_img = get_the_post_thumbnail_url();
+                $category = get_the_category();
             ?>
                 <div class="item__image">
                     <div class="hovereffect">
-                        <img src="<?= $featured_img; ?>" alt="">
-
+                        <?= the_post_thumbnail(); ?>
                         <div class="overlay">
                             <div class="info">
-                                <span>Atlas </span>
+                                <span><?php
+                                        echo $category[0]->cat_name;
+                                        ?> </span>
                                 <h2><?php the_title(); ?></h2>
                                 <a href="<?= get_permalink(); ?>">Learn more</a>
                             </div>
@@ -55,9 +58,8 @@ get_header();
         </div>
     <?php
     endif;
+    wp_reset_postdata();
     ?>
-</div>
-</div>
 </div>
 <?php
 get_footer();

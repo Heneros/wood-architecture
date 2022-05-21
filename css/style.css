@@ -2195,7 +2195,7 @@ footer .right__side-footer .social__networks .nav__social-footer .nav-social__it
 }
 
 .our__projects .our__projects-description p {
-  padding-top: 25px;
+  /* padding-top: 25px; */
   color: #999999;
   font-weight: 400;
   font-size: 15px;
@@ -10874,10 +10874,12 @@ progress {
 
 footer span {
   font-family: "raleway-wt", sans-serif, Arial !important;
-} 
-.services__footer a{
-    text-decoration: none;
 }
-.navbar__white .top-menu__link{
+
+.services__footer a {
+  text-decoration: none;
+}
+
+.navbar__white .top-menu__link {
   font-weight: 600;
 }
