@@ -156,6 +156,30 @@ function wood_registration_types()
         'taxonomies'         => array('category', 'post_tag'),
         'has_archive' => true
     ]);
+
+    register_post_type('professionals', [
+        'labels' => [
+            'name'               => 'Professionals',
+            'singular_name'      => 'Professional',
+            'add_new'            => 'Add new Professional',
+            'add_new_item'       => 'Add new Professional',
+            'edit_item'          => 'Edit Professional',
+            'new_item'           => 'New Professional',
+            'view_item'          => 'Watch Professional',
+            'search_items'       => 'Search Professional',
+            'not_found'          => 'Not found',
+            'not_found_in_trash' => 'Not found in bin',
+            'parent_item_colon'  => '',
+            'menu_name'          => 'Professionals',
+        ],
+        'public'              => false,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_icon'           => 'dashicons-admin-tools',
+        'hierarchical'        => false,
+        'supports'            => ['title', 'thumbnail', 'excerpt'],
+        'has_archive' => true
+    ]);
 }
 
 ?>

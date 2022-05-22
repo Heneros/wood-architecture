@@ -59,7 +59,9 @@ $size = 'full';
 
                 </div>
                 <div class="col-md-4">
-
+                    <div class="excerpt__project">
+                        
+                    </div>
                 </div>
             </div>
         </div>
