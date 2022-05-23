@@ -64,14 +64,12 @@ $size = 'full';
                     $select_professionals = get_field('select_professional');
                     foreach ($select_professionals as $select_professional) :
                         $title_prof = $select_professional->post_title;
+                        $firstW = strtok($title_prof, " ");
                         $post_id =  $select_professional->ID;
                         $featured_img = wp_get_attachment_url(get_post_thumbnail_id($post_id));
-                        $field = get_field_object('select_position');
-                    
-                        var_dump($select_professionals);
                     ?>
                         <div class="excerpt__project">
-                            <div class="title__excerpt-project"><?=  $value; ?> Architect </div>
+                            <div class="title__excerpt-project"><?= $firstW; ?> Architect </div>
                             <div class="image__author">
                                 <img src="<?php echo $featured_img; ?>" alt="">
                             </div>
