@@ -59,9 +59,38 @@ $size = 'full';
 
                 </div>
                 <div class="col-md-4">
-                    <div class="excerpt__project">
-                        
-                    </div>
+                    <?php
+                    wp_reset_postdata();
+                    $select_professionals = get_field('select_professional');
+                    foreach ($select_professionals as $select_professional) :
+                        $title_prof = $select_professional->post_title;
+                        $post_id =  $select_professional->ID;
+                        $featured_img = wp_get_attachment_url(get_post_thumbnail_id($post_id));
+                        $field = get_field_object('select_position');
+                    
+                        var_dump($select_professionals);
+                    ?>
+                        <div class="excerpt__project">
+                            <div class="title__excerpt-project"><?=  $value; ?> Architect </div>
+                            <div class="image__author">
+                                <img src="<?php echo $featured_img; ?>" alt="">
+                            </div>
+                            <div class="about__architect">
+                                <span class="title__name-project">
+                                    <?php echo $title_prof; ?>
+                                </span>
+                                <p>
+                                    <?php
+                                    the_excerpt();
+                                    ?>
+                                </p>
+                            </div>
+
+
+                        </div>
+                    <?php endforeach;
+                    wp_reset_postdata();
+                    ?>
                 </div>
             </div>
         </div>

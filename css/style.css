@@ -10883,3 +10883,10 @@ footer span {
 .navbar__white .top-menu__link {
   font-weight: 600;
 }
+
+.image__author img {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  object-fit: cover;
+}
