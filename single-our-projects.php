@@ -83,8 +83,6 @@ $size = 'full';
                                     ?>
                                 </p>
                             </div>
-
-
                         </div>
                     <?php endforeach;
                     wp_reset_postdata();
