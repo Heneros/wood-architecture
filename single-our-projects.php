@@ -10,6 +10,23 @@ $size = 'full';
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="breadcrumbs" bis_skin_checked="1">
+                    <!-- <ul>
+                        <li><a href="index.html">Home </a><span class="triangle__left"></span></li>
+                        <li><a href="projects.html">Projects</a> <span class="triangle__left"></span></li>
+                        <li><span class="active__breadcrumb">Item name</span></li>
+                    </ul> -->
+                    <ul>
+                        <?php
+                        if (function_exists('bcn_display')) {
+                            bcn_display();
+                        }
+                        ?>
+                    </ul>
+                    <span class="location">
+                        New York. Manhattan
+                    </span>
+                </div>
                 <div class="gallery">
                     <div class="swiper mySwiperGallery2">
                         <div class="swiper-wrapper">

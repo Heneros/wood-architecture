@@ -10890,3 +10890,29 @@ footer span {
   border-radius: 50%;
   object-fit: cover;
 }
+
+span[property="itemListElement"] span {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: #CCCCCC;
+  padding: 0 6px;
+  text-decoration: underline;
+}
+
+a[property="item"] span {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: #CCCCCC;
+  padding: 0 6px;
+  text-decoration: underline;
+}
+
+span[property="itemListElement"] span.current-item {
+  color: #888888;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  padding-left: 8px;
+}
