@@ -24,7 +24,7 @@ $size = 'full';
                         ?>
                     </ul>
                     <span class="location">
-                        New York. Manhattan
+                        <?= get_field('city_name') ?>
                     </span>
                 </div>
                 <div class="gallery">
@@ -100,8 +100,31 @@ $size = 'full';
                                     ?>
                                 </p>
                             </div>
+                            <div class="about__project">
+                                <span class="title__excerpt-project">
+                                    Information About Project
+                                </span>
+                                <div class="info__list" bis_skin_checked="1">
+                                    <p><span class="attribute">Client</span>
+                                        <b><?= get_field('client_name') ?></b>
+                                    </p>
+                                    <p><span class="attribute">Area</span>
+                                        <b><?= get_field('area') ?>m</b>
+                                    </p>
+                                    <p><span class="attribute">Development time</span>
+                                        <b><?= get_field('development_time') ?></b>
+                                    </p>
+                                    <p><span class="attribute">Ceiling height</span>
+                                        <b> <?= get_field('ceiling_height') ?></b>
+                                    </p>
+                                    <p><span class="attribute">Wall Thickness</span>
+                                        <b> <?= get_field('wall_thickness') ?></b>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                    <?php endforeach;
+                    <?php
+                    endforeach;
                     wp_reset_postdata();
                     ?>
                 </div>
