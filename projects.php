@@ -14,7 +14,7 @@ get_header();
     <div class="container">
         <div class="row">
             <div class="our__projects-description">
-                <h1 class="our__projects-title"> <?php the_title(); ?></h1>
+                <h1 class="our__projects-title"><?php the_title(); ?></h1>
                 <p class="our__projects-desc">
                     <?php the_excerpt(); ?>
                 </p>

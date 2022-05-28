@@ -10924,3 +10924,13 @@ a[aria-current="page"] {
   border-radius: 0px 5px;
   cursor: default;
 }
+
+.item__service .item__img img {
+  object-fit: cover;
+  height: 254px;
+}
+
+.our-services .row .item__text .title {
+  color: inherit;
+  text-decoration: none;
+}

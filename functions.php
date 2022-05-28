@@ -109,6 +109,7 @@ function wood_setup()
 
     add_image_size('homepage-thumb', 360, 200);
     add_image_size('homepage-slider', 395, 220);
+    add_image_size('service-image', 270, 254);
 }
 
 add_action("init", "wood_registration_types");
