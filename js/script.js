@@ -10544,21 +10544,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }); ///Search by value
 
-  $.ajaxSetup({
-    cache: false
-  });
-  $('#search').keyup(function () {
-    $('#items__service').html('');
-    var searchField = $('#search').val();
-    var expression = new RegExp(searchField, "i");
-    $.getJSON('../data.json', function (data) {
-      $.each(data, function (key, value) {
-        if (value.name.search(expression) != -1 || value.description.search(expression) != -1) {
-          $('#items__service').append("<div class='item__service'><div class='item__text'><span class='title'>" + value.name + "</span><p>" + value.description + "</p></div><div class='item__img'><img src='" + value.image + "'></div></div>");
-        }
-      });
-    });
-  }); ///Loader
+  // $.ajaxSetup({
+  //   cache: false
+  // });
+  // $('#search').keyup(function () {
+  //   $('#items__service').html('');
+  //   var searchField = $('#search').val();
+  //   var expression = new RegExp(searchField, "i");
+  //   $.getJSON('../data.json', function (data) {
+  //     $.each(data, function (key, value) {
+  //       if (value.name.search(expression) != -1 || value.description.search(expression) != -1) {
+  //         $('#items__service').append("<div class='item__service'><div class='item__text'><span class='title'>" + value.name + "</span><p>" + value.description + "</p></div><div class='item__img'><img src='" + value.image + "'></div></div>");
+  //       }
+  //     });
+  //   });
+  // }); ///Loader
 
   setTimeout(function () {
     $(".loading").animate({

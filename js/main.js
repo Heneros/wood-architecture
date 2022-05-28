@@ -40,4 +40,11 @@ $(document).ready(function () {
         return text.replace('[…]', '');
     });
 
+    $('#search').keyup(function () {
+        let searchPostsInput = document.getElementById("search").value.toUpperCase();
+        let searchPostsContainer = document.getElementById("items__service")[0];
+        let searchPostItem = document.getElementsByClassName("item__service");
+        // console.log(searchPostItem);
+    })
+
 });

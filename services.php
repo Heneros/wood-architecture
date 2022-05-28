@@ -22,7 +22,7 @@ get_header();
         <form class="field__search">
             <!-- <input type="text" autocomplete="of" name="search" placeholder="Search" id="search"> -->
             <input type="search" name="search" id="search" placeholder="search">
-            <button></button>
+
         </form>
         <div class="results-search" id="results-search"></div>
         <?php
@@ -32,7 +32,6 @@ get_header();
             'posts_per_page' => -1,
             'order' => 'ASC',
             'orderby' => 'title',
-
         ]);
 
         if ($query->have_posts()) :
