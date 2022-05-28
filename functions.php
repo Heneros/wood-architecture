@@ -114,7 +114,7 @@ function wood_setup()
 add_action("init", "wood_registration_types");
 function wood_registration_types()
 {
-    register_post_type('services', [
+    register_post_type('our-services', [
         'labels' => [
             'name'               => 'Services',
             'singular_name'      => 'Service',

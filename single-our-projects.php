@@ -79,52 +79,54 @@ $size = 'full';
                     <?php
                     wp_reset_postdata();
                     $select_professionals = get_field('select_professional');
-                    foreach ($select_professionals as $select_professional) :
-                        $title_prof = $select_professional->post_title;
-                        $firstW = strtok($title_prof, " ");
-                        $post_id =  $select_professional->ID;
-                        $featured_img = wp_get_attachment_url(get_post_thumbnail_id($post_id));
+                    if (!empty($select_professionals)) :
+                        foreach ($select_professionals as $select_professional) :
+                            $title_prof = $select_professional->post_title;
+                            $firstW = strtok($title_prof, " ");
+                            $post_id =  $select_professional->ID;
+                            $featured_img = wp_get_attachment_url(get_post_thumbnail_id($post_id));
                     ?>
-                        <div class="excerpt__project">
-                            <div class="title__excerpt-project"><?= $firstW; ?> Architect </div>
-                            <div class="image__author">
-                                <img src="<?php echo $featured_img; ?>" alt="">
-                            </div>
-                            <div class="about__architect">
-                                <span class="title__name-project">
-                                    <?php echo $title_prof; ?>
-                                </span>
-                                <p>
-                                    <?php
-                                    the_excerpt();
-                                    ?>
-                                </p>
-                            </div>
-                            <div class="about__project">
-                                <span class="title__excerpt-project">
-                                    Information About Project
-                                </span>
-                                <div class="info__list" bis_skin_checked="1">
-                                    <p><span class="attribute">Client</span>
-                                        <b><?= get_field('client_name') ?></b>
-                                    </p>
-                                    <p><span class="attribute">Area</span>
-                                        <b><?= get_field('area') ?>m</b>
-                                    </p>
-                                    <p><span class="attribute">Development time</span>
-                                        <b><?= get_field('development_time') ?></b>
-                                    </p>
-                                    <p><span class="attribute">Ceiling height</span>
-                                        <b> <?= get_field('ceiling_height') ?></b>
-                                    </p>
-                                    <p><span class="attribute">Wall Thickness</span>
-                                        <b> <?= get_field('wall_thickness') ?></b>
+                            <div class="excerpt__project">
+                                <div class="title__excerpt-project"><?= $firstW; ?> Architect </div>
+                                <div class="image__author">
+                                    <img src="<?php echo $featured_img; ?>" alt="">
+                                </div>
+                                <div class="about__architect">
+                                    <span class="title__name-project">
+                                        <?php echo $title_prof; ?>
+                                    </span>
+                                    <p>
+                                        <?php
+                                        the_excerpt();
+                                        ?>
                                     </p>
                                 </div>
+                                <div class="about__project">
+                                    <span class="title__excerpt-project">
+                                        Information About Project
+                                    </span>
+                                    <div class="info__list" bis_skin_checked="1">
+                                        <p><span class="attribute">Client</span>
+                                            <b><?= get_field('client_name') ?></b>
+                                        </p>
+                                        <p><span class="attribute">Area</span>
+                                            <b><?= get_field('area') ?>m</b>
+                                        </p>
+                                        <p><span class="attribute">Development time</span>
+                                            <b><?= get_field('development_time') ?></b>
+                                        </p>
+                                        <p><span class="attribute">Ceiling height</span>
+                                            <b> <?= get_field('ceiling_height') ?></b>
+                                        </p>
+                                        <p><span class="attribute">Wall Thickness</span>
+                                            <b> <?= get_field('wall_thickness') ?></b>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                     <?php
-                    endforeach;
+                        endforeach;
+                    endif;
                     wp_reset_postdata();
                     ?>
                 </div>

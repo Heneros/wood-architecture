@@ -10916,3 +10916,11 @@ span[property="itemListElement"] span.current-item {
   line-height: 16px;
   padding-left: 8px;
 }
+
+a[aria-current="page"] {
+  background-color: #F88500;
+  color: #fff !important;
+  padding: 7px 15px 8px;
+  border-radius: 0px 5px;
+  cursor: default;
+}
