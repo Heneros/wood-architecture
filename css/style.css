@@ -10934,3 +10934,11 @@ a[aria-current="page"] {
   color: inherit;
   text-decoration: none;
 }
+
+#search__input {
+  border: 2px solid #F88500;
+}
+
+#search__input::placeholder {
+  color: #000000;
+}

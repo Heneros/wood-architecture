@@ -19,14 +19,11 @@ get_header();
                 <?php the_content(); ?>
             </p>
         </div>
-        <form class="field__search">
+        <form class="field__search" method="GET">
             <!-- <input type="text" autocomplete="of" name="search" placeholder="Search" id="search"> -->
-            <input type="search" name="search" id="search" placeholder="search">
-
+            <input type="search" name="search" id="search__input" placeholder="Find service">
         </form>
-        <div class="results-search" id="results-search"></div>
         <?php
-
         $query = new WP_Query([
             'post_type' => 'our-services',
             'posts_per_page' => -1,
@@ -36,14 +33,14 @@ get_header();
 
         if ($query->have_posts()) :
         ?>
-            <div id="items__service" class="row">
+            <div id="items__service" class="row items__service">
                 <?php
                 while ($query->have_posts()) :
                     $query->the_post();
                 ?>
                     <div class="item__service ">
                         <div class="item__text">
-                            <a href="<?= get_permalink(); ?>" class="title"><?= the_title(); ?></a>
+                            <a href="" class="title"><?= the_title(); ?></a>
                             <p>
                                 <?= the_excerpt() ?>
                             </p>

@@ -40,17 +40,18 @@ $(document).ready(function () {
         return text.replace('[…]', '');
     });
 
-    $('#search').keyup(function () {
-        let searchPostsInput = document.getElementById("search").value.toUpperCase();
-        let searchPostsContainer = document.getElementById("items__service")[0];
-        let searchPostItems = document.getElementsByClassName("item__service");
+    $('#search__input').keyup(function (e) {
+        // e.preventDefault();
+        let searchPostsInput = document.getElementById("search__input").value.toUpperCase();
+        let searchPostsContainer = document.getElementsByClassName("items__service")[0];
+        let searchPostItems = searchPostsContainer.getElementsByClassName("item__service");
         for (let i = 0; i < searchPostItems.length; i++) {
             let singlePost = searchPostItems[i];
             let valuePost = singlePost.textContent || singlePost.innerText;
             if (valuePost.toUpperCase().indexOf(searchPostsInput) > -1) {
-                searchPostItems[i].getElementsByClassName.display = "";
+                searchPostItems[i].style.display = "";
             } else {
-                searchPostItems[i].getElementsByClassName.display = "none";
+                searchPostItems[i].style.display = "none";
             }
         }
         // console.log(searchPostItem);
