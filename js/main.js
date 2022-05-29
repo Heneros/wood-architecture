@@ -43,7 +43,16 @@ $(document).ready(function () {
     $('#search').keyup(function () {
         let searchPostsInput = document.getElementById("search").value.toUpperCase();
         let searchPostsContainer = document.getElementById("items__service")[0];
-        let searchPostItem = document.getElementsByClassName("item__service");
+        let searchPostItems = document.getElementsByClassName("item__service");
+        for (let i = 0; i < searchPostItems.length; i++) {
+            let singlePost = searchPostItems[i];
+            let valuePost = singlePost.textContent || singlePost.innerText;
+            if (valuePost.toUpperCase().indexOf(searchPostsInput) > -1) {
+                searchPostItems[i].getElementsByClassName.display = "";
+            } else {
+                searchPostItems[i].getElementsByClassName.display = "none";
+            }
+        }
         // console.log(searchPostItem);
     })
 
