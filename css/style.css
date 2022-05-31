@@ -10942,3 +10942,9 @@ a[aria-current="page"] {
 #search__input::placeholder {
   color: #000000;
 }
+
+.number__pagination .current {
+  color: #fff;
+  background-color: #F88500;
+padding: 15px;
+}

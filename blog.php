@@ -35,7 +35,7 @@ get_header();
                                 <?= get_the_post_thumbnail(); ?>
                                 <div class="date__item-blog"><?= the_date('d-M'); ?></div>
                             </div>
-                            <h2 class="title__blog-item"><?= the_title(); ?></h2>
+                            <h2 class="title__blog-item"><a href="<?= get_permalink(); ?>"><?= the_title(); ?></a> </h2>
                             <div class="description__blog">
                                 <?= the_excerpt(); ?>
                             </div>
@@ -51,23 +51,28 @@ get_header();
                 <div class="pagination">
                 <?php
 
-                the_posts_pagination([
-                    'prev_text'    => __('<button class="btn__pagination" type="submit">
-                <span class="left__arrow">
-                    &#8592;</span>
-                Back
-            </button>'),
-                    'next_text'    => __('    <button class="btn__pagination right__btn-pagination" type="submit">
-                Forward
-                <span class="right__arrow">
-                    &#8594;
-                </span>
-            </button>'),
-                ]);
+    
+                $links = paginate_links(array(
+                    'type'               => 'array'
+                ));
+                if ($links) :
+                    if ($prev_posts_link = get_previous_posts_link(__(''))) :
+                        echo '<button class="btn__pagination" type="submit"><span class="left__arrow"> ';
+                        echo $prev_posts_link;
+                        echo '</span></button>';
+                    endif;
+                    echo '<span class="number__pagination"><a href="#!">';
+                    echo join('', $links);
+                    echo '</a></span>';
+                    if ($next_posts_link = get_next_posts_link(__(''))) :
+                        echo ' <button class="btn__pagination right__btn-pagination" type="submit"><span class="right__arrow">';
+                        echo $next_posts_link;
+                        echo '</span></button>';
+                    endif;
+                endif;
             endif;
             wp_reset_postdata();
                 ?>
-
                 </div>
 
                 <!-- <button class="btn__pagination" type="submit">
