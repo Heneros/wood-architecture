@@ -10505,6 +10505,7 @@ document.addEventListener('DOMContentLoaded', function () {
       swiper: swiper
     }
   });
+
   $(".js-tabs-head-item").on('click', function () {
     if (!$(this).hasClass("active__show")) {
       var btns = $(this).closest(".js-tabs").find(".js-tabs-head-item");
@@ -10529,8 +10530,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     }
-  }); //////Display posts from data.json
-
+  });
+   //////Display posts from data.json
   var artistList = $("#items__service");
   var url = "../data.json";
   $.getJSON(url, function (data) {
