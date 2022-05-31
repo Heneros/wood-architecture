@@ -19,28 +19,27 @@ get_header();
                 </p>
             </div>
             <?php
-
-            $query = new WP_Query([
-                'post_type' => "post",
-                'posts_per_page' => 6
-            ]);
-            if ($query->have_posts()) :
+            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+            $args = array('posts_per_page' => 6, 'paged' => $paged, 'post_type' => "post",);
+            query_posts($args);
+            if (have_posts()) :
             ?>
                 <div class="main__blog">
                     <?php
-                    while ($query->have_posts()) :
-                        $query->the_post();
+                    while (have_posts()) :
+                        the_post();
+                        $featured_img = wp_get_attachment_image_url(get_post_thumbnail_id());
                     ?>
                         <div class="item__blog">
                             <div class="image__blog">
-                                <img src="images/our-blog/first-item.png" alt="">
-                                <div class="date__item-blog">5 January</div>
+                                <?= get_the_post_thumbnail(); ?>
+                                <div class="date__item-blog"><?= the_date('d-M'); ?></div>
                             </div>
                             <h2 class="title__blog-item"><?= the_title(); ?></h2>
                             <div class="description__blog">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, assumenda eum iure nulla alias voluptatum?
+                                <?= the_excerpt(); ?>
                             </div>
-                            <a href="blog-post.html" class="full__story">
+                            <a href="<?= get_permalink(); ?>" class="full__story">
                                 Full Story
                             </a>
                         </div>
@@ -48,13 +47,30 @@ get_header();
                     endwhile;
                     ?>
                 </div>
-            <?php
+                <!--main__blog-home--->
+                <div class="pagination">
+                <?php
+
+                the_posts_pagination([
+                    'prev_text'    => __('<button class="btn__pagination" type="submit">
+                <span class="left__arrow">
+                    &#8592;</span>
+                Back
+            </button>'),
+                    'next_text'    => __('    <button class="btn__pagination right__btn-pagination" type="submit">
+                Forward
+                <span class="right__arrow">
+                    &#8594;
+                </span>
+            </button>'),
+                ]);
             endif;
-            ?>
-            <!--main__blog-home--->
-        </div>
-        <div class="pagination">
-            <button class="btn__pagination" type="submit">
+            wp_reset_postdata();
+                ?>
+
+                </div>
+
+                <!-- <button class="btn__pagination" type="submit">
                 <span class="left__arrow">
                     &#8592;</span>
                 Back
@@ -73,8 +89,8 @@ get_header();
                 <span class="right__arrow">
                     &#8594;
                 </span>
+            </button> -->
 
-            </button>
         </div>
     </div>
 </section>
