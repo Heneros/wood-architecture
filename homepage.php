@@ -279,8 +279,8 @@ if (!empty($posts_selected)) :
 									<div class="image__blog">
 										<?php echo $featured_img_url; ?>
 										<div class="date__item-blog"><?php
-										echo date('d M');
-										?></div>
+																		echo date('d M');
+																		?></div>
 									</div>
 									<h2 class="title__blog-item"><?= $title_post; ?></h2>
 									<div class="description__blog">
@@ -304,17 +304,17 @@ if (!empty($posts_selected)) :
 				<!---col-md-8-->
 				<div class="col-md-4 ">
 					<div style="background-image: url('<?php echo get_template_directory_uri(); ?>/images/our-blog/all-posts.png');" class="all__posts">
-							<div class="block__image-adaptive">
-								<img src="images/our-blog/all-posts.png" alt="all posts">
-								<span class="see__all-posts--adaptive">
-									See All Posts
-								</span>
-							</div>
-							<span class="see__all-posts">
-								<a href="<?php echo site_url("/blog") ?>">
-									See All Posts
-								</a>
+						<div class="block__image-adaptive">
+							<img src="images/our-blog/all-posts.png" alt="all posts">
+							<span class="see__all-posts--adaptive">
+								See All Posts
 							</span>
+						</div>
+						<span class="see__all-posts">
+							<a href="<?php echo site_url("/blog") ?>">
+								See All Posts
+							</a>
+						</span>
 					</div>
 				</div>
 
@@ -325,7 +325,8 @@ if (!empty($posts_selected)) :
 <!---Our Blog End-->
 <script>
 	var ppp = 3;
-	var pageNumber = 1;
+	var pageNumber = 1
+
 
 	function load_posts() {
 		pageNumber++;
@@ -338,24 +339,27 @@ if (!empty($posts_selected)) :
 			beforeSend: function(xhr) {
 				$("#more_posts").hide();
 			},
-			success: function(data) {
+			success: function(data, response) {
 				var $data = $(data);
 				if ($data.length) {
 					$(".posts__homepage").append($data);
 					$("#more_posts").show();
 				} else {
-					$("#more_posts").attr("disabled", true);
+					// $("#more_posts").hide();
+					// $("#more_posts").attr("disabled", true);
 				}
 			},
+
 			error: function(jqXHR, textStatus, errorThrown) {
 				$loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+				$("#more_posts").hide();
 			}
 		});
 		return false;
 	}
 	$("#more_posts").on("click", function(e) {
 		e.preventDefault();
-		$("#more_posts").attr("disabled", true);
+		// $("#more_posts").attr("disabled", true);
 		load_posts();
 	});
 </script>

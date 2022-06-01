@@ -17,7 +17,7 @@ function more_post_ajax()
         'post_type' => 'post',
         'posts_per_page'    => $ppp,
         'paged'             => $pageNumber,
-        'Service'             => 'ASC'
+        'order'             => 'ASC'
     );
     $postslist = new WP_Query($args);
     $out = '';
@@ -43,6 +43,7 @@ function more_post_ajax()
 
 add_action('wp_ajax_nopriv_more_post_ajax', 'more_post_ajax');
 add_action('wp_ajax_more_post_ajax', 'more_post_ajax');
+
 
 
 function add_additional_class_on_li($classes, $item, $args)
