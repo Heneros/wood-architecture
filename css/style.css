@@ -10946,5 +10946,20 @@ a[aria-current="page"] {
 .number__pagination .current {
   color: #fff;
   background-color: #F88500;
-padding: 15px;
+  padding: 15px;
+}
+
+.title__blog-item a {
+  color: #333;
+  font-family: raleway-wt, sans-serif, Arial;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 140%;
+  text-transform: uppercase;
+  padding-top: 23px;
+  padding-left: 15px;
+  padding-bottom: 17px;
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
 }
