@@ -9,22 +9,22 @@ add_filter('excerpt_length', 'custom_excerpt_length', 999);
 
 function more_post_ajax()
 {
-    $ppp = (isset($_POST["ppp"])) ? ($_POST["ppp"]) : 3;
+    $ppp = (isset($_POST["ppp"])) ? ($_POST["ppp"]) : 0;
     $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
     header("Content-Type: text/html");
     $args = array(
         'suppress_filters'  => true,
-        'post_type' => 'post',
+        'post_type'         => 'post',
         'posts_per_page'    => $ppp,
         'paged'             => $pageNumber,
-        'order'             => 'ASC'
+        'order'             =>  'ASC',
+        'post_status' =>  'publish'
     );
     $postslist = new WP_Query($args);
-    $out = '';
     if ($postslist->have_posts()) : while ($postslist->have_posts()) : $postslist->the_post();
 ?>
             <div data-id="<?= $postslist->post->ID; ?>" class="col-md-4 best-works__item-wrapper" <?php post_class(); ?>>
-                <a href="#!" class="best-item">
+                <a href="<?= get_permalink(); ?>" class="best-item">
                     <div class="best-item__img-wrapper">
                         <?= the_post_thumbnail('homepage-thumb') ?>
                     </div>

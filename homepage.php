@@ -103,7 +103,6 @@ get_header();
 			</div>
 		</div>
 	</div>
-
 	<div class="best-works__bottom">
 		<div class="container">
 			<div class="row posts__homepage">
@@ -116,9 +115,9 @@ get_header();
 					'offset'            => $postOffset,
 					'posts_per_page'    => $postsPerPage,
 					//   'orderby'           => 'post_date',
-					'order'             => 'ASC'
+					'order'             => 'ASC',
+					'post_status' =>  'publish'
 				);
-				$all_posts = new WP_Query(['post_type' => 'post']);
 				wp_reset_postdata();
 				$postlist = new WP_Query($args);
 				if ($postlist->have_posts()) :
@@ -126,7 +125,7 @@ get_header();
 						$postlist->the_post();
 				?>
 						<div id="post-<?php the_ID(); ?>" class="col-md-4 best-works__item-wrapper" <?php post_class(); ?>>
-							<a href="#!" class="best-item">
+							<a href="<?= get_permalink(); ?>" class="best-item">
 								<div class="best-item__img-wrapper">
 									<?= the_post_thumbnail('homepage-thumb') ?>
 								</div>
@@ -305,7 +304,7 @@ if (!empty($posts_selected)) :
 				<div class="col-md-4 ">
 					<div style="background-image: url('<?php echo get_template_directory_uri(); ?>/images/our-blog/all-posts.png');" class="all__posts">
 						<div class="block__image-adaptive">
-							<img src="images/our-blog/all-posts.png" alt="all posts">
+							<!-- <img src="images/our-blog/all-posts.png" alt="all posts"> -->
 							<span class="see__all-posts--adaptive">
 								See All Posts
 							</span>
@@ -331,28 +330,41 @@ if (!empty($posts_selected)) :
 	function load_posts() {
 		pageNumber++;
 		var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=more_post_ajax';
+		// console.log(str);
 		$.ajax({
 			type: "POST",
 			dataType: "html",
 			url: wood.ajax_url,
+
 			data: str,
-			beforeSend: function(xhr) {
-				$("#more_posts").hide();
+			beforeSend: function(xhr, data) {
+				var $data = $(data);
+
+				$("#more_posts").show();
+				
+
 			},
 			success: function(data, response) {
 				var $data = $(data);
+
+				console.log($data.length);
+				if ($data.length) {
+					$("#more_posts").hide();
+				}
 				if ($data.length) {
 					$(".posts__homepage").append($data);
-					$("#more_posts").show();
+					$("#more_posts").hide();
+
+				
 				} else {
 					// $("#more_posts").hide();
-					// $("#more_posts").attr("disabled", true);
+				
 				}
 			},
 
 			error: function(jqXHR, textStatus, errorThrown) {
 				$loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
-				$("#more_posts").hide();
+				// $("#more_posts").hide();
 			}
 		});
 		return false;
