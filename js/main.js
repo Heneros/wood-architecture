@@ -36,6 +36,7 @@ $(document).ready(function () {
     // });
 
 
+
     $('.about__architect p').text(function (index, text) {
         return text.replace('[…]', '');
     });

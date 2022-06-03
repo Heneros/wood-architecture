@@ -6,22 +6,29 @@ function custom_excerpt_length($length)
 }
 add_filter('excerpt_length', 'custom_excerpt_length', 999);
 
-function loadmore_get_posts()
+
+function more_post_ajax_service()
 {
-    $ppp = (isset($_POST["ppp"])) ? ($_POST["ppp"]) : 2;
+
+    $ppp = (isset($_POST["ppp"])) ? ($_POST["ppp"]) : 0;
     $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
     header("Content-Type: text/html");
+
     $args = array(
-        'suppress_filters'  => true,
+        'suppress_filters' => true,
         'post_type'         => 'our-services',
-        'posts_per_page'    => $ppp,
-        'paged'             => $pageNumber,
+        'posts_per_page' => $ppp,
+        'paged'    => $pageNumber,
         'order'             =>  'ASC',
         'post_status' =>  'publish'
     );
-    $postslist = new WP_Query($args);
-    if ($postslist->have_posts()) : while ($postslist->have_posts()) : $postslist->the_post(); ?>
-            <div id="post-<?php the_ID(); ?>" class="item__service ">
+
+    $loop = new WP_Query($args);
+
+    $out = '';
+
+    if ($loop->have_posts()) :  while ($loop->have_posts()) : $loop->the_post(); ?>
+            <div class="item__service ">
                 <div class="item__text">
                     <a href="<?= get_permalink(); ?>" class="title"><?= the_title(); ?></a>
                     <p>
@@ -36,11 +43,15 @@ function loadmore_get_posts()
         endwhile;
     endif;
     wp_reset_postdata();
-    die();
+    die($out);
 }
 
-add_action('wp_ajax_nopriv_loadmore_get_posts', 'loadmore_get_posts');
-add_action('wp_ajax_loadmore_get_posts', 'loadmore_get_posts');
+add_action('wp_ajax_nopriv_more_post_ajax_service', 'more_post_ajax_service');
+add_action('wp_ajax_more_post_ajax_service', 'more_post_ajax_service');
+
+
+
+
 
 
 function more_post_ajax()
