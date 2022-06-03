@@ -24,23 +24,29 @@ get_header();
             <input type="search" name="search" id="search__input" placeholder="Find service">
         </form>
         <?php
-        $query = new WP_Query([
-            'post_type' => 'our-services',
-            'posts_per_page' => -1,
-            'order' => 'ASC',
-            'orderby' => 'title',
-        ]);
-
-        if ($query->have_posts()) :
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 0;
+        $postsPerPage = 4;
+        $postOffset = $paged * $postsPerPage;
+        $args = array(
+            'post_type'         => 'our-services',
+            'offset' => $postOffset,
+            'posts_per_page' =>   $postsPerPage,
+            
+            // 'order' => 'ASC',
+            // 'orderby' => 'title',
+            // 'post_status' => 'publish'
+        );
+        $postList = new WP_Query($args);
+        if ($postList->have_posts()) :
         ?>
             <div id="items__service" class="row items__service">
                 <?php
-                while ($query->have_posts()) :
-                    $query->the_post();
+                while ($postList->have_posts()) :
+                    $postList->the_post();
                 ?>
-                    <div class="item__service ">
+                    <div id="post-<?php the_ID(); ?>" class="item__service ">
                         <div class="item__text">
-                            <a href="" class="title"><?= the_title(); ?></a>
+                            <a href="<?= get_permalink(); ?>" class="title"><?= the_title(); ?></a>
                             <p>
                                 <?= the_excerpt() ?>
                             </p>
@@ -51,15 +57,67 @@ get_header();
                     </div>
                 <?php endwhile; ?>
             </div>
+
         <?php endif;
         wp_reset_postdata();
         ?>
     </div>
+    <!-- 
     <a class="load__more">
         Load More
-    </a>
+    </a> -->
+    <?php
+    get_template_part('loadmore');
+    ?>
     </div>
 </section>
+<script>
+    var ppp = 2;
+    var pageNumber = 1
+
+
+    function load_posts_services() {
+        pageNumber++;
+        var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=loadmore_get_posts';
+
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: wood.ajax_url,
+
+            data: str,
+            beforeSend: function(xhr, data) {
+                var $data = $(data);
+
+                $("#more_posts").show();
+            },
+            success: function(data, response) {
+                var $data = $(data);
+             
+                console.log($data);
+                if ($data.length) {
+                    $(".items__service").append($data);
+                    $("#more_posts").hide();
+
+
+                } else {
+                    // $("#more_posts").hide();
+
+                }
+            },
+
+            error: function(jqXHR, textStatus, errorThrown) {
+                $loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+            }
+        });
+        return false;
+    }
+    $("#more_posts").on("click", function(e) {
+        e.preventDefault();
+        // $("#more_posts").attr("disabled", true);
+        load_posts_services();
+    });
+</script>
 <?php
 
 get_footer();

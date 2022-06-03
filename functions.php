@@ -6,6 +6,42 @@ function custom_excerpt_length($length)
 }
 add_filter('excerpt_length', 'custom_excerpt_length', 999);
 
+function loadmore_get_posts()
+{
+    $ppp = (isset($_POST["ppp"])) ? ($_POST["ppp"]) : 2;
+    $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
+    header("Content-Type: text/html");
+    $args = array(
+        'suppress_filters'  => true,
+        'post_type'         => 'our-services',
+        'posts_per_page'    => $ppp,
+        'paged'             => $pageNumber,
+        'order'             =>  'ASC',
+        'post_status' =>  'publish'
+    );
+    $postslist = new WP_Query($args);
+    if ($postslist->have_posts()) : while ($postslist->have_posts()) : $postslist->the_post(); ?>
+            <div id="post-<?php the_ID(); ?>" class="item__service ">
+                <div class="item__text">
+                    <a href="<?= get_permalink(); ?>" class="title"><?= the_title(); ?></a>
+                    <p>
+                        <?= the_excerpt() ?>
+                    </p>
+                </div>
+                <div class="item__img">
+                    <?= the_post_thumbnail('service-image') ?>
+                </div>
+            </div>
+        <?php
+        endwhile;
+    endif;
+    wp_reset_postdata();
+    die();
+}
+
+add_action('wp_ajax_nopriv_loadmore_get_posts', 'loadmore_get_posts');
+add_action('wp_ajax_loadmore_get_posts', 'loadmore_get_posts');
+
 
 function more_post_ajax()
 {
@@ -22,7 +58,7 @@ function more_post_ajax()
     );
     $postslist = new WP_Query($args);
     if ($postslist->have_posts()) : while ($postslist->have_posts()) : $postslist->the_post();
-?>
+        ?>
             <div data-id="<?= $postslist->post->ID; ?>" class="col-md-4 best-works__item-wrapper" <?php post_class(); ?>>
                 <a href="<?= get_permalink(); ?>" class="best-item">
                     <div class="best-item__img-wrapper">
