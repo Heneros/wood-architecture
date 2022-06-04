@@ -27,22 +27,29 @@ get_header();
 
 
         ?>
-        <div id="ajax-posts" class="row ajax-posts">
+        <div id="ajax-posts" class="row ajax-posts items__service">
             <?php
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 0;
-            $postOffset = $paged * $postsPerPage;
             $postsPerPage = 4;
+            $postOffset = $paged * $postsPerPage;
+
             $args = array(
                 'post_type'         => 'our-services',
                 'posts_per_page' => $postsPerPage,
+                'offset'            => $postOffset,
+                'orderby'           => 'post_date',
+                'order'             => 'DESC'
             );
+            $all_posts = new WP_Query(['post_type' => 'our-services']);
+            $countPosts = $all_posts->post_count;
+            // echo $countPosts;
             wp_reset_postdata();
             $postList = new WP_Query($args);
             if ($postList->have_posts()) :
                 while ($postList->have_posts()) :
                     $postList->the_post();
             ?>
-                    <div class="item__service ">
+                    <div class="item__service " data-id="<?= $postList->post->ID; ?>">
                         <div class="item__text">
                             <a href="<?= get_permalink(); ?>" class="title"><?= the_title(); ?></a>
                             <p>
@@ -56,13 +63,22 @@ get_header();
             <?php endwhile;
             endif; ?>
         </div>
-
         <?php
         wp_reset_postdata();
+        global $wp_query;
+        $paged = get_query_var('paged') ? get_query_var('paged') : 0;
+        $max_pages = $wp_query->max_num_pages;
+        $published_posts = wp_count_posts()->publish;
+        $posts_per_page = get_option('posts_per_page');
+        $page_number_max = ceil($published_posts / $posts_per_page);
+        if ($paged < $page_number_max) :
         ?>
-        <!-- <div class="load__more" id="more_posts">Load More</div> -->
+
+            <a id="more_posts" class="load__more" href="#!">Load More</a>
+            <!-- <a href="#!" class="load__more <?= $countPosts > $postsPerPage ? 'hidden' : '' ?>" id="more_posts">Load More</a> -->
         <?php
-        get_template_part('loadmore');
+        endif;
+        // get_template_part('loadmore');
         ?>
     </div>
     <!-- 
@@ -73,7 +89,7 @@ get_header();
     </div>
 </section>
 <script>
-    var ppp = 2; 
+    var ppp = 4;
     var pageNumber = 1;
 
 
@@ -84,16 +100,18 @@ get_header();
             type: "POST",
             dataType: "html",
             url: wood.ajax_url,
+
             data: str,
             beforeSend: function(xhr, data) {
-                $("#more_posts").show();
+                // $("#more_posts").show();
+                $("#more_posts").hide();
             },
             success: function(data) {
                 var $data = $(data);
                 if ($data.length) {
                     $("#ajax-posts").append($data);
-
-                    $("#more_posts").hide();
+                    $("#more_posts").show();
+                    // $("#more_posts").hide();
                 } else {
 
                 }
@@ -106,13 +124,13 @@ get_header();
         return false;
     }
 
-    $("#more_posts").on("click", function(e, data) { 
+    $("#more_posts").on("click", function(e, data) {
         var $data = $(data);
         e.preventDefault();
         load_posts();
         $("#ajax-posts").append($data);
         $("#more_posts").attr("disabled", false);
-        $(this).insertAfter('#ajax-posts'); 
+        $(this).insertAfter('#ajax-posts');
     });
 </script>
 <?php

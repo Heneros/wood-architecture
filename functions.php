@@ -10,7 +10,7 @@ add_filter('excerpt_length', 'custom_excerpt_length', 999);
 function more_post_ajax_service()
 {
 
-    $ppp = (isset($_POST["ppp"])) ? ($_POST["ppp"]) : 0;
+    $ppp = (isset($_POST["ppp"])) ? ($_POST["ppp"]) : 4;
     $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
     header("Content-Type: text/html");
 
@@ -19,16 +19,16 @@ function more_post_ajax_service()
         'post_type'         => 'our-services',
         'posts_per_page' => $ppp,
         'paged'    => $pageNumber,
-        'order'             =>  'ASC',
-        'post_status' =>  'publish'
+        'orderby'           => 'post_date',
+        'order'             => 'DESC'
     );
 
     $loop = new WP_Query($args);
 
-    $out = '';
+    // $out = '';
 
     if ($loop->have_posts()) :  while ($loop->have_posts()) : $loop->the_post(); ?>
-            <div class="item__service ">
+            <div class="item__service " data-id="<?= $loop->post->ID; ?>">
                 <div class="item__text">
                     <a href="<?= get_permalink(); ?>" class="title"><?= the_title(); ?></a>
                     <p>
@@ -43,7 +43,7 @@ function more_post_ajax_service()
         endwhile;
     endif;
     wp_reset_postdata();
-    die($out);
+    // die($out);
 }
 
 add_action('wp_ajax_nopriv_more_post_ajax_service', 'more_post_ajax_service');
