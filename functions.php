@@ -1,5 +1,8 @@
 <?php
 
+add_filter('wpcf7_autop_or_not', '__return_false');
+
+
 function custom_excerpt_length($length)
 {
     return 20;

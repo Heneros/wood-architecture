@@ -79,50 +79,35 @@ get_header();
                 </div>
                 <div data-tab="our__partners" class="our__partners  js-tabs-body-item ">
                     <h1 class="main__title-partners">
-                        Our Partners
+                        <?= get_field('our_partners_title');  ?>
                     </h1>
-                    <div class="partners__items">
-                        <div class="partner__item">
-                            <div class="logo__partner">
-                                <img src="images/our-partners/black-logo-1.png" alt="logo">
-                            </div>
-                            <div class="text">
-                                <span class="title__partner">Milano Parquet S.R.L</span>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident libero nostrum illo fugiat id natus cupiditate amet beatae doloribus asperiores facilis, nobis ea, deleniti nesciunt reprehenderit laboriosam dolores earum! Soluta?</p>
-                            </div>
-
+                    <?php
+                    if (have_rows('our_partners_items')) :
+                    ?>
+                        <div class="partners__items">
+                            <?php
+                            while (have_rows('our_partners_items')) :
+                                the_row();
+                                $logo = get_sub_field('image');
+                            ?>
+                                <div class="partner__item">
+                                    <div class="logo__partner">
+                                        <img src="<?= esc_url($logo['url']) ?>" alt="<?= esc_attr($logo['alt']) ?>">
+                                    </div>
+                                    <div class="text">
+                                        <span class="title__partner"><?= get_sub_field('title'); ?></span>
+                                        <p>
+                                            <?= get_sub_field('descriprion'); ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            <?php
+                            endwhile;
+                            ?>
                         </div>
-                        <div class="partner__item">
-                            <div class="logo__partner">
-                                <img src="images/our-partners/black-logo-2.png" alt="logo">
-                            </div>
-                            <div class="text">
-                                <span class="title__partner">Mazzucato Legnami</span>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum cupiditate maxime tenetur veniam? Neque consequatur excepturi nesciunt rerum laudantium natus aut! Totam ex earum quibusdam maiores dicta, ipsam exercitationem aut sequi inventore est et iusto similique quia aliquam, sed sapiente deleniti eveniet voluptate hic eum aspernatur ducimus fuga fugit. Ipsa voluptas assumenda sed itaque totam ipsam saepe velit obcaecati soluta porro, autem fugiat quas corrupti.</p>
-                            </div>
-
-                        </div>
-                        <div class="partner__item">
-                            <div class="logo__partner">
-                                <img src="images/our-partners/black-logo-3.png" alt="logo">
-                            </div>
-                            <div class="text">
-                                <span class="title__partner">Andrea Fanfani</span>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero placeat pariatur incidunt aliquid facere impedit dolore voluptatem, qui dolores aspernatur laboriosam illum sunt quo quod est nesciunt hic sint doloribus asperiores harum! Quia, ullam dolorum consequatur quis exercitationem fugit id obcaecati laudantium provident voluptatum nihil eveniet placeat incidunt, officia, repudiandae hic molestias magni illo neque earum rerum fuga. Dignissimos quidem quas maiores ut expedita quam alias nisi, quaerat quis tempora, amet corrupti laboriosam repellat. Officia?</p>
-                            </div>
-
-                        </div>
-                        <div class="partner__item">
-                            <div class="logo__partner">
-                                <img src="images/our-partners/black-logo-4.png" alt="logo">
-                            </div>
-                            <div class="text">
-                                <span class="title__partner">Angelo Cappellini</span>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae reiciendis, beatae illo incidunt, praesentium blanditiis tenetur cumque ex quae tempora optio, provident laboriosam sapiente. Error incidunt voluptates dolorum, magnam nam aut ea qui, minus eaque ex enim eveniet accusamus sed cumque reprehenderit quod vitae sapiente.</p>
-                            </div>
-
-                        </div>
-                    </div>
+                    <?php
+                    endif;
+                    ?>
                 </div>
                 <div data-tab="contact__us" class="contact__us js-tabs-body-item active__show">
                     <div class="text__contact-us">
@@ -131,13 +116,9 @@ get_header();
                         </span>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque fuga exercitationem voluptate esse omnis tempora praesentium repellendus eaque nisi, cum facilis distinctio earum, sit molestiae consequuntur, aliquid vero tempore vitae sequi recusandae perspiciatis ipsam. Earum.</p>
                     </div>
-                    <form id="form" class="contact__us-block " action="">
-                        <input type="text" name="name" placeholder="Name..." id="">
-                        <input type="tel" name="phone" placeholder="Phone..." id="">
-                        <textarea name="commentary" placeholder="Your Message" id="" cols="15" rows="8"></textarea>
-                        <button class="btn__contact-us" type="submit">Send Message</button>
-                    </form>
-
+                    <?php
+                    echo do_shortcode('[contact-form-7 id="322" title="Contact Us" html_id="form" html_class="contact__us-block"]');
+                    ?>
                 </div>
             </div>
         </div>
