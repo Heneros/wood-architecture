@@ -2,7 +2,19 @@
 
 add_filter('wpcf7_autop_or_not', '__return_false');
 
+//API key
+// function woodMapKey($api)
+// {
+//     $api['key'] = '';
+//     return $api;
+// }
+// add_filter('acf/fields/google_map/api', 'woodMapKey');
 
+function my_acf_init()
+{
+    acf_update_setting('google_api_key', '');
+}
+add_action('acf/init', 'my_acf_init');
 function custom_excerpt_length($length)
 {
     return 20;
