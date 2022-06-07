@@ -123,6 +123,24 @@ get_header();
             </div>
         </div>
     </div>
+    <?php
+
+    $location = get_field('map_location');
+    // var_dump($location);
+
+    $src = esc_url(
+        add_query_arg([
+
+            'key' => '',
+            'q' => $location['address']
+        ], 'https://www.google.com/maps/embed/v1/place')
+    );
+    echo $src;
+    ?>
+
+    <iframe width="600" height="450" frameborder="0" style="border:0" src="<?php echo $src; ?>" allowfullscreen>
+    </iframe>
+
     <div class="feedback__bottom active__show">
         <div class="information__bottom">
             <span class="title__bottom">Our Contacts</span>
@@ -131,18 +149,7 @@ get_header();
         </div>
         <div class="map__contact-us">
             <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d35199.669464484534!2d-74.02971788264841!3d40.747293792863296!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2z0K3QvNC_0LDQudGALdGB0YLQtdC50YIt0LHQuNC70LTQuNC90LM!5e0!3m2!1sru!2sua!4v1650914237998!5m2!1sru!2sua" width="930" height="524" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-            <?php
-            while (have_posts()) {
-                the_post();
-                $mapLocation = get_field('map_location');
-            ?>
-                <div class="marker" data-lat="<?php echo $mapLocation['lat'] ?>" data-lng="<?php echo $mapLocation['lng']; ?>">
 
-                    <?php echo $mapLocation['address']; ?>
-                </div>
-            <?php
-            }
-            ?>
         </div>
 
     </div>
