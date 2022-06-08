@@ -24,7 +24,21 @@ $size = 'full';
                         ?>
                     </ul>
                     <span class="location">
-                        <?= get_field('city_name') ?>
+                        <?php
+                        $location = get_field('place_name');
+
+                        $address = '';
+                        foreach (array('street_number', 'street_name', 'city', 'state', 'post_code', 'country') as $i => $k) {
+                            if (isset($location[$k])) {
+                                $address .= sprintf('<span class="segment-%s">%s</span>, ', $k, $location[$k]);
+                            }
+                        }
+
+
+                        $address = trim($address, ', ');
+
+                        echo '<p>' . $address . '.</p>';
+                        echo $place_name; ?>
                     </span>
                 </div>
                 <div class="gallery">
@@ -87,7 +101,7 @@ $size = 'full';
                             $featured_img = wp_get_attachment_url(get_post_thumbnail_id($post_id));
                     ?>
                             <div class="excerpt__project">
-                                <div class="title__excerpt-project"><?= $firstW; ?> Architect </div>
+                                <div class="title__excerpt-project">Architect <?= $firstW; ?> </div>
                                 <div class="image__author">
                                     <img src="<?php echo $featured_img; ?>" alt="">
                                 </div>
