@@ -34,8 +34,9 @@
 						<a href="<?= site_url('/services'); ?>"> <span class="title__aboutUs-footer"> Services </span></a>
 						<?php
 						$query = new WP_Query([
-							'post_type' => 'services',
-							'posts_per_page' => 5
+							'post_type' => 'our-services',
+							'posts_per_page' => 5,
+							'order' => 'ASC'
 						]);
 						if ($query->have_posts()) :
 						?>

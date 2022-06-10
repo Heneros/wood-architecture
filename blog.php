@@ -61,9 +61,9 @@ get_header();
                         echo $prev_posts_link;
                         echo '</span></button>';
                     endif;
-                    echo '<span class="number__pagination"><a href="#!">';
+                    echo '<span class="number__pagination">';
                     echo join('', $links);
-                    echo '</a></span>';
+                    echo '</span>';
                     if ($next_posts_link = get_next_posts_link(__(''))) :
                         echo ' <button class="btn__pagination right__btn-pagination" type="submit"><span class="right__arrow">';
                         echo $next_posts_link;

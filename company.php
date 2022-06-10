@@ -142,7 +142,7 @@ get_header();
         <div class="information__bottom">
             <span class="title__bottom">Our Contacts</span>
             <address>New York, NY Empire State Building</address>
-            <a class="phone__num" href="tel:75554449055">7(555)-444-90-55</a>
+            <a class="phone__num" href="tel:<?= get_field('phone_number') ?>"><?= get_field('phone_number') ?></a>
         </div>
         <div class="map__contact-us">
             <iframe width="600" height="450" frameborder="0" style="border:0" src="<?php echo $src; ?>" allowfullscreen>
